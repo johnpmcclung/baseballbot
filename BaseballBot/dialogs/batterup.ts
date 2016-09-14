@@ -4,8 +4,7 @@ import { GameData } from "../gameData";
 
 export function batterUpDialog() : Array<builder.IDialogWaterfallStep> {
     return [(session: builder.Session) => {
-        session.send("Tell me about the player coming up to bat.");
-        session.beginDialog("/player");
+        session.beginDialog("/player", "Tell me about the player coming up to bat.");
     }, (session: builder.Session, result: builder.IDialogResult<Player>) => {
         if(!result.response) { session.endDialog(); }
         var game = GameData.getInstance(session);

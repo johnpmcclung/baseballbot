@@ -3,8 +3,8 @@ import { DefensivePosition, Player } from "../../baseball/index";
 import { GameData } from "../gameData";
 
 export function playerDialog(): Array<builder.IDialogWaterfallStep> {
-    return  [(session: builder.Session) => {
-        builder.Prompts.text(session, "What's the player's name?");
+    return  [(session: builder.Session, playerInfo: string) => {
+        builder.Prompts.text(session, `${playerInfo} What's the player's name?`);
     }, (session: builder.Session, result: builder.IPromptTextResult) => {
         session.dialogData.playerName = result.response;
         builder.Prompts.choice(session, `What position does ${result.response} play?`, [

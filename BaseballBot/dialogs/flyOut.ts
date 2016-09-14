@@ -4,8 +4,7 @@ import { GameData } from "../gameData";
 
 export function flyOutDialog(): Array<builder.IDialogWaterfallStep> {
     return  [(session: builder.Session) => {
-        session.send("Tell me about the player who caught the ball.");
-        session.beginDialog("/player");
+        session.beginDialog("/player", "Tell me about the player who caught the ball.");
     }, (session: builder.Session, result: builder.IDialogResult<Player>) => {
         if(!result.response) { session.endDialog(); }
         var game = GameData.getInstance(session);
