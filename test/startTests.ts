@@ -28,7 +28,7 @@ describe("start", () => {
             var sut = new StartCommand();
 
             (function() { sut.do(events, state); }).should
-                .throw("Game has already started.", "Game was allowed to start twice.");
+                .throw("The game cannot be started again.", "Game was allowed to start twice.");
         });
         it("fails if the game is already over", () => {
             var events: Array<GameEvent> = [];
@@ -39,7 +39,7 @@ describe("start", () => {
             var sut = new StartCommand();
 
             (function() { sut.do(events, state); }).should
-                .throw("Game has already finished.", "Game was allowed to start a finished game.");
+                .throw("The game cannot be started again.", "Game was allowed to start a finished game.");
         });
         it("creates first inning event", () => {
             var events: Array<GameEvent> = [];
@@ -85,5 +85,4 @@ describe("start", () => {
             result.should.be.equal("Game started.");
         });
     });
-
 });
