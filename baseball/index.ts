@@ -1,7 +1,7 @@
 export { DefensivePosition, EventType, InningHalf, OffensivePosition, Team } from "./enums";
 export { evolve, GameEvent } from "./event";
 export { GameState } from "./state";
-export { Player } from "./player";
+export { LineUp, Player } from "./player";
 export { Runner } from "./runner";
 
 // BaseRunning
