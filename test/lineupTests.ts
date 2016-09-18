@@ -1,7 +1,9 @@
 import { should, expect } from "chai";
 import {
-    DefensivePosition, LineUp, Player
+    AddToLineUpCommand, DefensivePosition, GameEvent, GameState, 
+    EventType, LineUp, Player
 } from "../baseball/index";
+import { GameStateBuilder } from "./stateBuilder";
 
 describe("LineUp", () => {
     it("allows you to add a player.", () => {
