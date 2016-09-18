@@ -24,6 +24,9 @@ export { GameOverEvent, gameOverEventStringify } from  "./Innings/GameOverEvent"
 export { InningEvent, inningEventStringify } from "./Innings/InningEvent";
 export { InningHalfEvent, inningHalfEventStringify } from "./Innings/InningHalfEvent";
 
+// LineUp
+export { AddToLineUpCommand } from "./LineUp/AddToLineUpCommand";
+
 // Outs
 export { AssistedOutCommand, AssistedOutEvent, assistedOutEventStringify } from "./Outs/AssistedOutCommand";
 export { FlyOutCommand } from "./Outs/UnassistedOutCommands";
