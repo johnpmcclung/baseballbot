@@ -1,5 +1,3 @@
-/// <reference path="../typings/index.d.ts" />
-
 import { should } from "chai";
 import {
     DefensivePosition, LineUp, Player

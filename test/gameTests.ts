@@ -1,5 +1,3 @@
-/// <reference path="../typings/index.d.ts" />
-
 import * as chai from "chai";
 import {
     AdvanceRunnerCommand, BatterUpCommand, DefensivePosition, FlyOutCommand, HomerunCommand,

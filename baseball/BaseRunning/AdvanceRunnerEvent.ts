@@ -1,5 +1,3 @@
-/// <reference path="../../typings/index.d.ts" />
-
 import * as lodash from "lodash";
 import { GameEvent } from "../event";
 import { GameState } from "../state";
