@@ -9,14 +9,15 @@ export function batterUpDialog() : Array<builder.IDialogWaterfallStep> {
         if(!result.response) { session.endDialog(); }
         var game = GameData.getInstance(session);
         try {
-            game.do(new BatterUpCommand(result.response));
+            if(!result.response) {
+                throw new Error("Player is required.");
+            }
+            game.do(new BatterUpCommand(<Player>result.response));
             GameData.save(session, game);
+            session.endDialog(`${game.state.atBat!.name} steps up to the plate.`);
         }
         catch(error) {
-            session.send(error.message);
-        }
-        finally {
-            session.endDialog(`${game.state.atBat.name} steps up to the plate.`);
+            session.endDialog(error.message);
         }
     }];
 }

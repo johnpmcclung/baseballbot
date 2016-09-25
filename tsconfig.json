@@ -3,7 +3,7 @@
    "compilerOptions": {
        "noImplicitAny" : true,
        "sourceMap": true,
-       "strictNullChecks": false,
+       "strictNullChecks": true,
        "outDir": "build/"
    },
     "exclude": [

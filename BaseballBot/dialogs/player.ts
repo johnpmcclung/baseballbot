@@ -12,6 +12,9 @@ export function playerDialog(): Array<builder.IDialogWaterfallStep> {
             "Left Field", "Center Field", "Right Field"
             ]);
     }, (session: builder.Session, result: builder.IPromptChoiceResult) => {
+        if(!result || !result.response) {
+            throw new Error("Choice was invalid.");
+        }
         session.dialogData.playerPosition = DefensivePosition[result.response.index + 1];
         builder.Prompts.confirm(session, `${session.dialogData.playerName} (${session.dialogData.playerPosition}), is this right?`);
     }, (session: builder.Session, result: builder.IPromptConfirmResult) => {

@@ -1,11 +1,11 @@
-import * as chai from "chai";
+import { should, expect } from "chai";
 import {
     EventType, evolve, GameEvent, GameOverEvent, gameOverEventStringify, GameState, 
     InningEvent, inningEventStringify, InningHalf, InningHalfEvent, 
     inningHalfEventStringify, Team
 } from "../baseball/index";
 
-chai.should();
+should();
 
 describe("innings", () => {
     describe("the inning event", () => {
@@ -79,7 +79,8 @@ describe("innings", () => {
 
             evolve(sut, state);
 
-            state.winner.should.equal(Team.home);
+            expect(state.winner).to.not.be.null;
+            (<Team>state.winner).should.equal(Team.home);
         });
         it("should return a string describing itself", () => {
             var sut = new GameOverEvent(Team.home);

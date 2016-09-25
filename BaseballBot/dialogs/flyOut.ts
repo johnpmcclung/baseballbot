@@ -9,7 +9,10 @@ export function flyOutDialog(): Array<builder.IDialogWaterfallStep> {
         if(!result.response) { session.endDialog(); }
         var game = GameData.getInstance(session);
         try {
-            game.do(new FlyOutCommand(result.response));
+            if(!result.response) {
+                throw new Error("player is required");
+            }
+            game.do(new FlyOutCommand(<Player>result.response));
             GameData.save(session, game);
         }
         catch(error) {

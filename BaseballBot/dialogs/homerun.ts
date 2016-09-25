@@ -1,5 +1,5 @@
 import * as builder from "botbuilder";
-import { HomerunCommand } from "../../baseball/index";
+import { HomerunCommand, Player } from "../../baseball/index";
 import { GameData } from "../gameData";
 
 export function homerunDialog(): Array<builder.IDialogWaterfallStep> {
@@ -7,15 +7,16 @@ export function homerunDialog(): Array<builder.IDialogWaterfallStep> {
         var game = GameData.getInstance(session);
         var hitter = game.state.atBat;
         try {
-            game.do(new HomerunCommand(hitter));
+            if(!hitter) {
+                throw new Error("No one is at bat");
+            }
+            game.do(new HomerunCommand(<Player>hitter));
             GameData.save(session, game);
+            session.endDialog(`${hitter!.name} has hit a homerun! The score ` +
+            `is Home:${game.state.homeScore} Visitors:${game.state.visitorScore}`);
         }
         catch(error) {
-            session.send(error.message);
-        }
-        finally {
-            session.endDialog(`${hitter.name} has hit a homerun! The score ` +
-            `is Home:${game.state.homeScore} Visitors:${game.state.visitorScore}`);
+            session.endDialog(error.message);
         }
     }];
 }

@@ -6,7 +6,7 @@ export class Player {
 
 export class LineUp {
     static battingSpotOffset: number = 10;
-    lineUp: Array<Player> = new Array<Player>();
+    lineUp: Array<Player | null> = new Array<Player>();
     currentBatter: number;
     onDeck: number;
 
@@ -26,19 +26,19 @@ export class LineUp {
         this.lineUp[spot + LineUp.battingSpotOffset] = player;
     }
 
-    public getBatter(): Player {
+    public getBatter(): Player | null {
         return this.lineUp[this.currentBatter];
     }
 
-    public getOnDeck(): Player {
+    public getOnDeck(): Player | null {
         return this.lineUp[this.onDeck];
     }
 
-    public getPosition (position: DefensivePosition): Player {
+    public getPosition (position: DefensivePosition): Player | null {
         return this.lineUp[position];
     }
 
-    public getSpot (spot: number): Player {
+    public getSpot (spot: number): Player | null {
         return this.lineUp[spot + LineUp.battingSpotOffset];
     }
 

@@ -7,15 +7,16 @@ export function tripleDialog(): Array<builder.IDialogWaterfallStep> {
         var game = GameData.getInstance(session);
         var hitter = game.state.atBat;
         try {
+            if(!hitter) {
+                throw new Error("No one is at bat.");
+            }
             game.do(new TripleCommand(hitter));
             GameData.save(session, game);
+            session.endDialog(`${hitter!.name} has hit a triple! The score ` +
+            `is Home:${game.state.homeScore} Visitors:${game.state.visitorScore}`);
         }
         catch(error) {
-            session.send(error.message);
-        }
-        finally {
-            session.endDialog(`${hitter.name} has hit a triple! The score ` +
-            `is Home:${game.state.homeScore} Visitors:${game.state.visitorScore}`);
+            session.endDialog(error.message);
         }
     }];
 }

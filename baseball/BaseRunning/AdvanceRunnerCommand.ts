@@ -7,18 +7,24 @@ import { AdvanceRunnerEvent } from "./AdvanceRunnerEvent";
 import { RunScoredEvent } from "../Scoring/RunScoredEvent";
 
 export class AdvanceRunnerCommand extends GameCommand {
-    constructor(protected to: OffensivePosition, protected player: Player) {
+    constructor(protected to: OffensivePosition, protected player: Player | null) {
         super();
     }
 
-    do(events: Array<GameEvent>, state: GameState) {
+    do(events: Array<GameEvent>, state: GameState): void {
         super.checkInGameCommand(state);
-        if (this.player === null) {
+
+        var from: OffensivePosition | null;
+        if(!this.player) {
             this.player = state.atBat;
+            from = OffensivePosition.atBat;
+        } else {
+            from = this.findPlayer(<Player>this.player, state);
         }
-        var from = this.findPlayer(this.player, state);
+
+        if (from === null) { throw new Error("Runner not found."); }
         if (from > this.to) { throw new Error("Runner are not allowed to move backwards."); }
-        events.push(new AdvanceRunnerEvent(this.player, from, this.to));
+        events.push(new AdvanceRunnerEvent(<Player>this.player, <OffensivePosition>from, this.to));
 
         if (this.to !== OffensivePosition.home) { return; }
 
@@ -30,7 +36,7 @@ export class AdvanceRunnerCommand extends GameCommand {
         }
     }
 
-    private findPlayer(player: Player, state: GameState) : OffensivePosition {
+    private findPlayer(player: Player, state: GameState): OffensivePosition | null {
         if (state.atBat === player) {
             return OffensivePosition.atBat;
         }
@@ -43,5 +49,6 @@ export class AdvanceRunnerCommand extends GameCommand {
         if (state.thirdBase.indexOf(player) !== -1) {
             return OffensivePosition.third;
         }
+        return null;
     }
 }

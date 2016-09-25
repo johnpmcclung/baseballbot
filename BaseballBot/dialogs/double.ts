@@ -9,13 +9,12 @@ export function doubleDialog(): Array<builder.IDialogWaterfallStep> {
         try {
             game.do(new DoubleCommand(hitter));
             GameData.save(session, game);
+            
+            session.endDialog(`${hitter!.name} has hit a double! The score ` +
+            `is Home:${game.state.homeScore} Visitors:${game.state.visitorScore}`);
         }
         catch(error) {
-            session.send(error.message);
-        }
-        finally {
-            session.endDialog(`${hitter.name} has hit a double! The score ` +
-            `is Home:${game.state.homeScore} Visitors:${game.state.visitorScore}`);
+            session.endDialog(error.message);
         }
     }];
 }

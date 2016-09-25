@@ -50,7 +50,7 @@ export function assistedOutEventEvolver (event: AssistedOutEvent, state: GameSta
 }
 
 export function assistedOutEventStringify(event: AssistedOutEvent): string {
-    var outs: string;
+    var outs: string = "";
     var play = "(";
 
     if (event.properties.outPlayers.length === 1) {

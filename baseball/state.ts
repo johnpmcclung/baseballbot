@@ -2,18 +2,18 @@ import { InningHalf, Team } from "./enums";
 import { Player } from "./player";
 
 export class GameState {
-    atBat: Player;
-    firstBase: Array<Player>;
+    atBat: Player | null;
+    firstBase: Array<Player | null>;
     gameOver: boolean;
     homeScore: number;
     inning: number;
     inningHalf: InningHalf;
     outs: number;
-    secondBase: Array<Player>;
+    secondBase: Array<Player | null>;
     started: boolean;
-    thirdBase: Array<Player>;
+    thirdBase: Array<Player | null>;
     visitorScore: number;
-    winner: Team;
+    winner: Team | null;
 
     constructor() {
         this.atBat = null;

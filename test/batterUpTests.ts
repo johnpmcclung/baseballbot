@@ -1,4 +1,4 @@
-import * as chai from "chai";
+import { should, expect } from "chai";
 import * as lodash from "lodash";
 import {
     BatterUpCommand, BatterUpEvent, batterUpEventStringify, DefensivePosition, EventType, evolve,
@@ -6,7 +6,7 @@ import {
 } from "../baseball/index";
 import { PlayerBuilder, GameStateBuilder } from "./stateBuilder";
 
-chai.should();
+should();
 
 describe("batter up", () => {
     describe("Batter up command", () => {
@@ -108,7 +108,8 @@ describe("batter up", () => {
 
             evolve(sut, state);
 
-            state.atBat.should.equal(player);
+            expect(state.atBat).to.not.be.null;
+            (<Player>state.atBat).should.equal(player);
         });
     });
 });

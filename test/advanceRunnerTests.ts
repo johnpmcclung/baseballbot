@@ -1,4 +1,4 @@
-import * as chai from "chai";
+import { expect, should } from "chai";
 import * as lodash from "lodash";
 import {
     AdvanceRunnerCommand, AdvanceRunnerEvent, advanceRunnerEventStringify, DefensivePosition, EventType, evolve, GameEvent,
@@ -6,14 +6,12 @@ import {
 } from "../baseball/index";
 import { PlayerBuilder, GameStateBuilder } from "./stateBuilder";
 
-chai.should();
-
 describe("runner advances", () => {
     describe("advance runner command", () => {
         it("adds a advance runner event", () => {
             var player = new PlayerBuilder().build();
             var events: Array<GameEvent> = [];
-            var state = new GameStateBuilder().build();
+            var state = new GameStateBuilder().withAtBat(player).build();
             var sut = new AdvanceRunnerCommand(OffensivePosition.second, player);
 
             sut.do(events, state);
