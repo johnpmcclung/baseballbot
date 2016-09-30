@@ -14,20 +14,28 @@ export class LineUp {
         for(var i = 0; i < 20; i++){
             this.lineUp[i] = null;
         }
-        this.currentBatter = 1 + LineUp.battingSpotOffset;
-        this.onDeck = 2 + LineUp.battingSpotOffset;
+        this.currentBatter = 0 + LineUp.battingSpotOffset;
+        this.onDeck = 1 + LineUp.battingSpotOffset;
     }
 
     public add(player: Player, spot: number): void {
-        if(this.lineUp[spot + LineUp.battingSpotOffset] || this.lineUp[player.position]) {
-            throw new Error("That position in the line up is already occupied.");
-        }
+        this.validateAdd(player, spot);
         this.lineUp[player.position] = player;
         this.lineUp[spot + LineUp.battingSpotOffset] = player;
     }
 
+    public validateAdd(player: Player, spot: number): void {
+        if(this.lineUp[spot + LineUp.battingSpotOffset] || this.lineUp[player.position]) {
+            throw new Error("That position in the line up is already occupied.");
+        }
+    }
+
     public getBatter(): Player | null {
         return this.lineUp[this.currentBatter];
+    }
+
+    public getLineUp(): Array<Player | null> {
+        return this.lineUp.slice(LineUp.battingSpotOffset + 1, LineUp.battingSpotOffset + 10);
     }
 
     public getOnDeck(): Player | null {
@@ -57,7 +65,9 @@ export class LineUp {
 
     public remove (player: Player): void {
         this.lineUp = this.lineUp.filter((playerInLineUp) => { 
-            return player !== playerInLineUp; 
+            return playerInLineUp === null || 
+                (player.name !== playerInLineUp.name &&
+                 player.position !== playerInLineUp.position); 
         })
     }
 }

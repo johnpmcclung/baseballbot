@@ -6,7 +6,7 @@ export enum EventType {
     Single, AdvanceRunner,
     Double, Triple, LineOut,
     GroundOut, AssistedOut,
-    AddToLineUp
+    AddToLineUp, RemoveFromLineUp
 }
 
 export enum InningHalf {

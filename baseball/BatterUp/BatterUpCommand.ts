@@ -5,7 +5,7 @@ import { BatterUpEvent } from "./BatterUpEvent";
 import { Player } from "../player";
 
 export class BatterUpCommand extends GameCommand {
-    constructor(public player: Player) {
+    constructor() {
         super();
     }
 
@@ -14,7 +14,7 @@ export class BatterUpCommand extends GameCommand {
         if (state.atBat) { throw new Error("Batter is already at the plate."); }
         if (!this.validate(state)) { throw new Error("Game is in an invalid state for a new batter."); }
 
-        events.push(new BatterUpEvent(this.player));
+        events.push(new BatterUpEvent());
     }
 
     private validate(state: GameState): boolean {

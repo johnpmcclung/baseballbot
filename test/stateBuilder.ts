@@ -1,10 +1,11 @@
-import { DefensivePosition, GameState, InningHalf, Player } from "../baseball/index";
+import { DefensivePosition, GameState, InningHalf, LineUp, Player } from "../baseball/index";
 
 export class GameStateBuilder {
     private state: GameState = {
         atBat: null,
         firstBase: [],
         gameOver: false,
+        homeLineUp: new LineUp(),
         homeScore: 0,
         inning: 1,
         inningHalf: InningHalf.top,
@@ -12,6 +13,7 @@ export class GameStateBuilder {
         secondBase: [],
         started: true,
         thirdBase: [],
+        visitorLineUp: new LineUp(),
         visitorScore: 0,
         winner: null
     };
@@ -61,8 +63,18 @@ export class GameStateBuilder {
         return this;
     }
 
+    public withHomeLineUp(lineUp: LineUp): this {
+        this.state.homeLineUp = lineUp;
+        return this;
+    }
+
     public withVisitorScore(score: number): this {
         this.state.visitorScore = score;
+        return this;
+    }
+
+    public withVisitorLineUp(lineUp: LineUp): this {
+        this.state.visitorLineUp = lineUp;
         return this;
     }
 

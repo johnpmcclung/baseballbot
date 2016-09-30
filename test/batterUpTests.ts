@@ -2,7 +2,7 @@ import { should, expect } from "chai";
 import * as lodash from "lodash";
 import {
     BatterUpCommand, BatterUpEvent, batterUpEventStringify, DefensivePosition, EventType, evolve,
-    GameEvent, GameState, Player
+    InningHalf, GameEvent, GameState, LineUp, Player
 } from "../baseball/index";
 import { PlayerBuilder, GameStateBuilder } from "./stateBuilder";
 
@@ -14,7 +14,7 @@ describe("batter up", () => {
             var events: Array<GameEvent> = [];
             var state = new GameStateBuilder().build();
             var player = new PlayerBuilder().build();
-            var sut = new BatterUpCommand(player);
+            var sut = new BatterUpCommand();
 
             sut.do(events, state);
 
@@ -25,7 +25,7 @@ describe("batter up", () => {
             var events: Array<GameEvent> = [];
             var state = new GameStateBuilder().withStarted(false).build();
             var player = new PlayerBuilder().build();
-            var sut = new BatterUpCommand(player);
+            var sut = new BatterUpCommand();
 
             (function() { sut.do(events, state); }).should
                 .throw("Game has not started.",
@@ -35,7 +35,7 @@ describe("batter up", () => {
             var events: Array<GameEvent> = [];
             var state = new GameStateBuilder().withGameOver(true).build();
             var player = new PlayerBuilder().build();
-            var sut = new BatterUpCommand(player);
+            var sut = new BatterUpCommand();
 
             (function() { sut.do(events, state); }).should
                 .throw("Game has already finished.", "Game was allowed to start a finished game.");
@@ -48,21 +48,10 @@ describe("batter up", () => {
                 .withPosition(DefensivePosition.pitcher)
                 .build();
             var state = new GameStateBuilder().withAtBat(player1).build();
-            var sut = new BatterUpCommand(player2);
+            var sut = new BatterUpCommand();
 
             (function() { sut.do(events, state); }).should
                 .throw("Batter is already at the plate.");
-        });
-        it("takes a player", () => {
-            var events: Array<GameEvent> = [];
-            var state = new GameStateBuilder().build();
-            var player = new PlayerBuilder().build();
-            var sut = new BatterUpCommand(player);
-
-            sut.do(events, state);
-
-            lodash.findIndex(events, {type: EventType.BatterUp, properties: { player: player }})
-                .should.not.equal(-1, "Could not find a batter up event with the player.");
         });
         it("fails if there is more than one player on first", () => {
             var events: Array<GameEvent> = [];
@@ -78,7 +67,7 @@ describe("batter up", () => {
             var state = new GameStateBuilder()
                 .withFirstBasePlayers([player1, player2])
                 .build();
-            var sut = new BatterUpCommand(player3);
+            var sut = new BatterUpCommand();
 
             (function() { sut.do(events, state); }).should
                 .throw("Game is in an invalid state for a new batter.");
@@ -88,28 +77,37 @@ describe("batter up", () => {
     describe("the batter up event", () => {
         it("should be of type BatterUp", () => {
             var player = new PlayerBuilder().build();
-            var sut = new BatterUpEvent(player);
+            var sut = new BatterUpEvent();
 
             sut.type.should.equal(EventType.BatterUp);
         });
         it("should return a string describing itself", () => {
             var player = new PlayerBuilder().build();
-            var sut = new BatterUpEvent(player);
+            var sut = new BatterUpEvent();
 
             var result = batterUpEventStringify(sut);
 
             result.should.be.equal("A batter comes to the plate.");
         });
-        it("adds player to batter up array", () => {
+        it("moves the lineup of the batting team.", () => {
             var events: Array<GameEvent> = [];
-            var state = new GameStateBuilder().build();
-            var player = new PlayerBuilder().build();
-            var sut = new BatterUpEvent(player);
+            var player1 = new PlayerBuilder().build();
+            var player2 = new PlayerBuilder()
+                .withName("Ozzie Smith")
+                .withPosition(DefensivePosition.shortStop)
+                .build();
+            var lineup = new LineUp();
+            lineup.add(player1, 1);
+            lineup.add(player2, 2);
+            lineup.nextBatter();
+            var state = new GameStateBuilder()
+                .withHomeLineUp(lineup)
+                .withInningHalf(InningHalf.bottom).build();
+            var sut = new BatterUpEvent();
 
+            expect(state.homeLineUp.getBatter()).to.equal(player1);
             evolve(sut, state);
-
-            expect(state.atBat).to.not.be.null;
-            (<Player>state.atBat).should.equal(player);
+            expect(state.homeLineUp.getBatter()).to.equal(player2);
         });
     });
 });

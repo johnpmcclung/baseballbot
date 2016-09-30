@@ -1,4 +1,5 @@
 import { EventType, GameState } from "./index";
+import { addToLineUpEventEvolver } from "./LineUp/AddToLineUp";
 import { advanceRunnerEventEvolver } from "./BaseRunning/AdvanceRunnerEvent";
 import { assistedOutEventEvolver } from "./Outs/AssistedOutCommand";
 import { batterUpEventEvolver } from "./BatterUp/BatterUpEvent";
@@ -6,6 +7,7 @@ import { gameOverEventEvolver } from "./Innings/GameOverEvent";
 import { inningEventEvolver } from "./Innings/InningEvent";
 import { inningHalfEventEvolver } from "./Innings/InningHalfEvent";
 import { outEventEvolver } from "./Outs/OutEvent";
+import { removeFromLineUpEventEvolver } from "./LineUp/RemoveFromLineUp";
 import { runScoredEventEvolver } from "./Scoring/RunScoredEvent";
 import { startEventEvolver } from "./Start/StartEvent";
 import { unassistedOutEventEvolver } from "./Outs/UnassistedOutEvents";
@@ -17,6 +19,10 @@ export interface GameEvent {
 
 export function evolve(event: GameEvent, state: GameState) {
     switch (event.type) {
+        case EventType.AddToLineUp:
+            addToLineUpEventEvolver(event, state);
+            break;
+
         case EventType.AdvanceRunner:
             advanceRunnerEventEvolver(event, state);
             break;
@@ -43,6 +49,10 @@ export function evolve(event: GameEvent, state: GameState) {
 
         case EventType.Out:
             outEventEvolver(event, state);
+            break;
+
+        case EventType.RemoveFromLineUp:
+            removeFromLineUpEventEvolver(event, state);
             break;
 
         case EventType.RunScored:
