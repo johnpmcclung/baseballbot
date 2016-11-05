@@ -1,7 +1,7 @@
 import { expect, should } from "chai";
 import * as lodash from "lodash";
 import {
-    AdvanceRunnerCommand, AdvanceRunnerEvent, advanceRunnerEventStringify, DefensivePosition, EventType, evolve, GameEvent,
+    AdvanceRunnerCommand, AdvanceRunnerEvent, DefensivePosition, EventType, evolve, GameEvent,
     GameState, InningHalf, OffensivePosition, Player, RunScoredEvent, Team
 } from "../baseball/index";
 import { PlayerBuilder, GameStateBuilder } from "./stateBuilder";
@@ -199,17 +199,6 @@ describe("runner advances", () => {
             var sut = new AdvanceRunnerEvent(player, OffensivePosition.first, OffensivePosition.second);
 
             sut.type.should.equal(EventType.AdvanceRunner);
-        });
-        it("should return a string describing itself", () => {
-            var player = new PlayerBuilder().build();
-            var sut = new AdvanceRunnerEvent(player, OffensivePosition.first, OffensivePosition.second);
-
-            var result = advanceRunnerEventStringify(sut);
-
-            result.should.be.equal(
-                `${player.name} went from ${OffensivePosition[OffensivePosition.first].toLocaleLowerCase()} ` +
-                `to ${OffensivePosition[OffensivePosition.second].toLocaleLowerCase()}.`
-            );
         });
         it("should take runner out of from first if that is from", () => {
             var player = new PlayerBuilder().build();

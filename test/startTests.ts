@@ -2,7 +2,7 @@ import * as chai from "chai";
 import * as lodash from "lodash";
 import {
     EventType, evolve, GameEvent, GameState, InningEvent, InningHalf, InningHalfEvent,
-    StartCommand, StartEvent, startEventStringify, Team
+    StartCommand, StartEvent, Team
 } from "../baseball/index";
 import { GameStateBuilder } from "./stateBuilder";
 
@@ -74,13 +74,6 @@ describe("start", () => {
             evolve(sut, currentState);
 
             currentState.started.should.equal(true);
-        });
-        it("should return a string describing itself", () => {
-            var sut = new StartEvent();
-
-            var result = startEventStringify(sut);
-
-            result.should.be.equal("Game started.");
         });
     });
 });

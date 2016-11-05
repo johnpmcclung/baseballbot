@@ -1,7 +1,7 @@
 import * as chai from "chai";
 import * as lodash from "lodash";
 import {
-    DefensivePosition, EventType, evolve, FlyOutCommand, FlyOutEvent, flyOutEventStringify, 
+    DefensivePosition, EventType, evolve, FlyOutCommand, FlyOutEvent,
     GameEvent, GameOverEvent, GameState, InningEvent, InningHalf, InningHalfEvent, OutEvent, 
     Player, Team
 } from "../baseball/index";
@@ -255,20 +255,6 @@ describe("fly outs", () => {
             var sut = new FlyOutEvent(offensivePlayer, defensivePlayer);
 
             sut.type.should.equal(EventType.FlyOut);
-        });
-        it("should return a string describing itself", () => {
-            var offensivePlayer = new PlayerBuilder().build();
-            var defensivePlayer = new PlayerBuilder()
-                .withName("Bill Burber")
-                .withPosition(DefensivePosition.centerField)
-                .build();
-            var sut = new FlyOutEvent(offensivePlayer, defensivePlayer);
-
-            var result = flyOutEventStringify(sut);
-
-            result.should.be.equal(
-                `${offensivePlayer.name} hit a fly ball to ${defensivePlayer.name}. (F${defensivePlayer.position})`
-            );
         });
         it("removes player from batter up state", () => {
             var offensivePlayer = new PlayerBuilder().build();

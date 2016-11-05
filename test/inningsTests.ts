@@ -1,8 +1,7 @@
 import { should, expect } from "chai";
 import {
-    EventType, evolve, GameEvent, GameOverEvent, gameOverEventStringify, GameState, 
-    InningEvent, inningEventStringify, InningHalf, InningHalfEvent, 
-    inningHalfEventStringify, Team
+    EventType, evolve, GameEvent, GameOverEvent, GameState, 
+    InningEvent, InningHalf, InningHalfEvent, Team
 } from "../baseball/index";
 
 should();
@@ -23,13 +22,6 @@ describe("innings", () => {
 
             state.inning.should.equal(inning);
         });
-        it("should return a string describing itself", () => {
-            var sut = new InningEvent(2);
-
-            var result = inningEventStringify(sut);
-
-            result.should.be.equal("Inning number " + sut.properties.inningNumber + " has begun.");
-        });
     });
 
     describe("the inningHalf event", () => {
@@ -46,16 +38,6 @@ describe("innings", () => {
             evolve(sut, state);
 
             state.inningHalf.should.equal(inningHalf);
-        });
-        it("should return a string describing itself", () => {
-            var sut = new InningHalfEvent(InningHalf.bottom);
-
-            var result = inningHalfEventStringify(sut);
-
-            result.should.be.equal(
-                "The " + InningHalf[sut.properties.inningHalf].toLocaleString() +
-                    " of the inning has begun."
-            );
         });
     });
 
@@ -81,13 +63,6 @@ describe("innings", () => {
 
             expect(state.winner).to.not.be.null;
             (<Team>state.winner).should.equal(Team.home);
-        });
-        it("should return a string describing itself", () => {
-            var sut = new GameOverEvent(Team.home);
-
-            var result = gameOverEventStringify(sut);
-
-            result.should.be.equal("The " + Team[sut.properties.winner].toLocaleString() + " team has won the game.");
         });
     });
 });

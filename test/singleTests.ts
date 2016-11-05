@@ -1,8 +1,7 @@
 import * as chai from "chai";
 import * as lodash from "lodash";
 import { 
-    DefensivePosition, EventType, GameEvent, GameState, Player, SingleCommand, SingleEvent,
-    singleEventStringify
+    DefensivePosition, EventType, GameEvent, GameState, Player, SingleCommand, SingleEvent
 } from "../baseball/index";
 import { PlayerBuilder, GameStateBuilder } from "./stateBuilder";
 
@@ -65,14 +64,6 @@ describe("single", () => {
             var sut = new SingleEvent(player);
 
             sut.type.should.equal(EventType.Single);
-        });
-        it("should return a string describing itself", () => {
-            var player = new PlayerBuilder().build();
-            var sut = new SingleEvent(player);
-
-            var result = singleEventStringify(sut);
-
-            result.should.be.equal(`${player.name} hit a single. (1B)`);
         });
     });
 });

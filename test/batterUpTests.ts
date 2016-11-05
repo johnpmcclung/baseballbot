@@ -1,7 +1,7 @@
 import { should, expect } from "chai";
 import * as lodash from "lodash";
 import {
-    BatterUpCommand, BatterUpEvent, batterUpEventStringify, DefensivePosition, EventType, evolve,
+    BatterUpCommand, BatterUpEvent, DefensivePosition, EventType, evolve,
     InningHalf, GameEvent, GameState, LineUp, Player
 } from "../baseball/index";
 import { PlayerBuilder, GameStateBuilder } from "./stateBuilder";
@@ -80,14 +80,6 @@ describe("batter up", () => {
             var sut = new BatterUpEvent();
 
             sut.type.should.equal(EventType.BatterUp);
-        });
-        it("should return a string describing itself", () => {
-            var player = new PlayerBuilder().build();
-            var sut = new BatterUpEvent();
-
-            var result = batterUpEventStringify(sut);
-
-            result.should.be.equal("A batter comes to the plate.");
         });
         it("moves the lineup of the batting team.", () => {
             var events: Array<GameEvent> = [];

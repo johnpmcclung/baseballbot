@@ -1,11 +1,12 @@
 import * as lodash from "lodash";
 import { should, expect } from "chai";
 import {
-    AddToLineUpCommand, AddToLineUpEvent, addToLineUpEventEvolver,
+    AddToLineUpCommand, AddToLineUpEvent,
     DefensivePosition, GameEvent, GameState, EventType, LineUp, Player,
-    RemoveFromLineUpCommand, RemoveFromLineUpEvent, removeFromLineUpEventEvolver,
-    Team
-} from "../baseball/index";
+    RemoveFromLineUpCommand, RemoveFromLineUpEvent, Team
+} from "../baseball";
+import { addToLineUpEvolver } from "../baseball/aggregates/gamestate/addToLineUpEvolver";
+import { removeFromLineUpEvolver } from "../baseball/aggregates/gamestate/removeFromLineUpEvolver";
 import { GameStateBuilder, PlayerBuilder } from "./stateBuilder";
 
 describe("LineUp", () => {
@@ -226,7 +227,7 @@ describe("LineUp", () => {
             var event = new AddToLineUpEvent(player, 1, Team.visitor)
             var gameState = new GameStateBuilder().build();
 
-            addToLineUpEventEvolver(event, gameState);
+            addToLineUpEvolver(event, gameState);
 
             var result = gameState.visitorLineUp.getSpot(1);
             expect(result).to.not.be.null;
@@ -237,7 +238,7 @@ describe("LineUp", () => {
             var event = new AddToLineUpEvent(player, 1, Team.home)
             var gameState = new GameStateBuilder().build();
 
-            addToLineUpEventEvolver(event, gameState);
+            addToLineUpEvolver(event, gameState);
 
             var result = gameState.homeLineUp.getSpot(1);
             expect(result).to.not.be.null;
@@ -278,7 +279,7 @@ describe("LineUp", () => {
             lineUp.add(player, 1);
             var gameState = new GameStateBuilder().withVisitorLineUp(lineUp).build();
 
-            removeFromLineUpEventEvolver(event, gameState);
+            removeFromLineUpEvolver(event, gameState);
 
             var result = gameState.visitorLineUp.getSpot(1);
             expect(result).to.be.null;
@@ -290,7 +291,7 @@ describe("LineUp", () => {
             lineUp.add(player, 1);
             var gameState = new GameStateBuilder().withHomeLineUp(lineUp).build();
 
-            removeFromLineUpEventEvolver(event, gameState);
+            removeFromLineUpEvolver(event, gameState);
 
             var result = gameState.homeLineUp.getSpot(1);
             expect(result).to.be.null;

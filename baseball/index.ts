@@ -1,43 +1,43 @@
 export { DefensivePosition, EventType, InningHalf, OffensivePosition, Team } from "./enums";
-export { evolve, GameEvent } from "./event";
-export { GameState } from "./state";
+export { GameEvent } from "./events";
+export { GameState, evolve } from "./aggregates/gameState";
 export { LineUp, Player } from "./player";
 export { Runner } from "./runner";
 
 // BaseRunning
-export { AdvanceRunnerCommand } from "./BaseRunning/AdvanceRunnerCommand";
-export { AdvanceRunnerEvent, advanceRunnerEventStringify } from "./BaseRunning/AdvanceRunnerEvent";
+export { AdvanceRunnerCommand } from "./commands";
+export { AdvanceRunnerEvent } from "./events";
 
 // BatterUp
-export { BatterUpCommand } from "./BatterUp/BatterUpCommand";
-export { BatterUpEvent, batterUpEventStringify } from "./BatterUp/BatterUpEvent";
+export { BatterUpCommand } from "./commands";
+export { BatterUpEvent } from "./events";
 
 // Hitting
-export { DoubleCommand, HomerunCommand, SingleCommand, TripleCommand } from "./Hitting/HitCommand";
-export { 
-    DoubleEvent, doubleEventStringify, HomerunEvent, homerunEventStringify, SingleEvent, 
-    singleEventStringify, TripleEvent, tripleEventStringify 
-} from "./Hitting/HitEvent";
+export { DoubleCommand, HomerunCommand, SingleCommand, TripleCommand } from "./commands";
+export { DoubleEvent, HomerunEvent, SingleEvent, TripleEvent } from "./events";
 
 // Innings
-export { GameOverEvent, gameOverEventStringify } from  "./Innings/GameOverEvent";
-export { InningEvent, inningEventStringify } from "./Innings/InningEvent";
-export { InningHalfEvent, inningHalfEventStringify } from "./Innings/InningHalfEvent";
+export { GameOverEvent } from  "./events";
+export { InningEvent } from "./events";
+export { InningHalfEvent } from "./events";
 
 // LineUp
-export { AddToLineUpCommand, AddToLineUpEvent, addToLineUpEventEvolver } from "./LineUp/AddToLineUp";
-export { RemoveFromLineUpCommand, RemoveFromLineUpEvent, removeFromLineUpEventEvolver } from "./LineUp/RemoveFromLineUp";
+export { AddToLineUpCommand } from "./commands";
+export { AddToLineUpEvent } from "./events";
+export { RemoveFromLineUpCommand } from "./commands";
+export { RemoveFromLineUpEvent } from "./events";
 
 // Outs
-export { AssistedOutCommand, AssistedOutEvent, assistedOutEventStringify } from "./Outs/AssistedOutCommand";
-export { FlyOutCommand } from "./Outs/UnassistedOutCommands";
-export { FlyOutEvent, flyOutEventStringify } from "./Outs/UnassistedOutEvents";
-export { OutCommand } from  "./Outs/OutCommand";
-export { OutEvent, outEventStringify } from  "./Outs/OutEvent";
+export { AssistedOutCommand } from "./commands";
+export { AssistedOutEvent } from "./events";
+export { FlyOutCommand } from "./commands";
+export { FlyOutEvent } from "./events";
+export { OutCommand } from  "./commands";
+export { OutEvent } from  "./events";
 
 // Scoring
-export { RunScoredEvent, runScoredEventStringify } from "./Scoring/RunScoredEvent";
+export { RunScoredEvent } from "./events";
 
 // Start
-export { StartCommand } from "./Start/StartCommand";
-export { StartEvent, startEventStringify } from "./Start/StartEvent";
+export { StartCommand } from "./commands";
+export { StartEvent } from "./events";

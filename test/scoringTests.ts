@@ -1,6 +1,6 @@
 import * as chai from "chai";
 import { 
-    GameEvent, GameState, EventType, evolve, RunScoredEvent, runScoredEventStringify, Team 
+    GameEvent, GameState, EventType, evolve, RunScoredEvent, Team 
 } from "../baseball/index";
 
 chai.should();
@@ -27,13 +27,6 @@ describe("scoring", () => {
             evolve(sut, state);
 
             state.visitorScore.should.equal(1);
-        });
-        it("should return a string describing itself", () => {
-            var sut = new RunScoredEvent(Team.visitor);
-
-            var result = runScoredEventStringify(sut);
-
-            result.should.be.equal("The " + Team[sut.properties.team].toLocaleString() + " team has scored a run.");
         });
     });
 });

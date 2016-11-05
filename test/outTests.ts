@@ -2,7 +2,7 @@ import * as chai from "chai";
 import * as lodash from "lodash";
 import {
     EventType, evolve, GameEvent, GameOverEvent, GameState, InningEvent, InningHalfEvent,
-    InningHalf, OutCommand, OutEvent, outEventStringify, Team
+    InningHalf, OutCommand, OutEvent, Team
 } from "../baseball/index";
 
 chai.should();
@@ -22,13 +22,6 @@ describe("outs", () => {
             evolve(sut, state);
 
             state.outs.should.equal(outs);
-        });
-        it("should return a string describing itself", () => {
-            var sut = new OutEvent(2);
-
-            var result = outEventStringify(sut);
-
-            result.should.be.equal("There are " + sut.properties.outs + " outs.");
         });
     });
 });

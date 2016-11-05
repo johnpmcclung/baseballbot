@@ -1,7 +1,7 @@
 import * as lodash from "lodash";
-import { GameEvent, evolve } from "./event";
-import { GameCommand } from "./command";
-import { GameState } from "./state";
+import { GameEvent } from "./events";
+import { GameCommand } from "./commands";
+import { GameState, evolve } from "./aggregates/gameState";
 
 export class Runner {
     private eventIndex: number = 0;

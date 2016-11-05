@@ -2,7 +2,7 @@ import * as chai from "chai";
 import * as lodash from "lodash";
 import {
     DefensivePosition, EventType, GameEvent, GameState, HomerunCommand, HomerunEvent,
-    homerunEventStringify, InningHalf, Player, RunScoredEvent, Team
+    InningHalf, Player, RunScoredEvent, Team
 } from "../baseball/index";
 import { PlayerBuilder, GameStateBuilder } from "./stateBuilder";
 
@@ -92,14 +92,6 @@ describe("homerun", () => {
             var sut = new HomerunEvent(player);
 
             sut.type.should.equal(EventType.Homerun);
-        });
-        it("should return a string describing itself", () => {
-            var player = new PlayerBuilder().build();
-            var sut = new HomerunEvent(player);
-
-            var result = homerunEventStringify(sut);
-
-            result.should.be.equal("Turd Ferguson hit a homerun. (HR)");
         });
     });
 });
