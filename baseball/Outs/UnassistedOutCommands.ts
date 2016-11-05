@@ -1,5 +1,5 @@
 import { GameEvent } from "../event";
-import { FlyOutEvent, LineOutEvent, GroundOutEvent } from "./UnassistedOutEvents";
+import { FlyOutEvent, LineOutEvent, GroundOutEvent, StrikeOutEvent } from "./UnassistedOutEvents";
 import { GameState } from "../state";
 import { GameCommand } from "../command";
 import { Player } from "../player";
@@ -40,6 +40,19 @@ export class GroundOutCommand extends OutCommand {
         super.checkAtBatCommand(state);
         super.do(events, state);
         events.push(new GroundOutEvent(<Player>state.atBat, this.defensivePlayer));
+        return events;
+    }
+}
+
+export class StrikeOutCommand extends OutCommand {
+    constructor(private defensivePlayer: Player, private looking: boolean) {
+        super();
+    }
+
+    do(events: Array<GameEvent>, state: GameState) {
+        super.checkAtBatCommand(state);
+        super.do(events, state);
+        events.push(new StrikeOutEvent(<Player>state.atBat, this.defensivePlayer, this.looking));
         return events;
     }
 }

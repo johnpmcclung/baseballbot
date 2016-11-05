@@ -59,3 +59,45 @@ export class HomerunEvent extends HitEvent {
 export function homerunEventStringify(event: HomerunEvent) {
     return `${event.properties.player.name} hit a homerun. (HR)`;
 }
+
+export interface WalkEventProperties {
+    player: Player;
+    intentional: boolean;
+}
+
+export class WalkEvent {
+    constructor(player: Player, intentional: boolean) {
+        this.type = EventType.Walk;
+        this.properties = {player: player, intentional: intentional};
+    }
+    type: EventType;
+    properties: WalkEventProperties;
+}
+
+export function walkEventStringify(event: SingleEvent) {
+    return `${event.properties.player.name} walked. (${this.properties.intentional ? 'IBB' : 'BB'})`;
+}
+
+export class HitByPitchEvent extends HitEvent {
+    constructor(player: Player) {
+        super();
+        this.type = EventType.HitByPitch;
+        this.properties = {player: player}; 
+    }
+}
+
+export function hitByPitchEventStringify(event: SingleEvent) {
+    return `${event.properties.player.name} was hit by the pitch. (HBP)`;
+}
+
+export class FieldersChoiceEvent extends HitEvent {
+    constructor(player: Player) {
+        super();
+        this.type = EventType.FieldersChoice;
+        this.properties = {player: player}; 
+    }
+}
+
+export function fieldersChoiceEventStringify(event: SingleEvent) {
+    return `${event.properties.player.name} arrived at first on fielder's choice. (FC)`;
+}

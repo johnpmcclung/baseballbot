@@ -2,8 +2,8 @@ import { AdvanceRunnerCommand } from "../BaseRunning/AdvanceRunnerCommand";
 import { GameState } from "../state";
 import { GameEvent } from "../event";
 import { Player } from "../player";
-import { SingleEvent, DoubleEvent,
-    TripleEvent, HomerunEvent, HitEvent } from  "./HitEvent";
+import { SingleEvent, DoubleEvent, TripleEvent, HomerunEvent, HitEvent, 
+    WalkEvent, HitByPitchEvent, FieldersChoiceEvent } from  "./HitEvent";
 import { OffensivePosition, DefensivePosition } from "../enums";
 
 export class HitCommand extends AdvanceRunnerCommand {
@@ -41,5 +41,23 @@ export class TripleCommand extends HitCommand {
 export class HomerunCommand extends HitCommand {
     constructor (player: Player | null) {
         super(player, OffensivePosition.home, (player: Player) => new HomerunEvent(player));
+    }
+}
+
+export class WalkCommand extends HitCommand {
+    constructor (player: Player | null, intentional: boolean) {
+        super(player, OffensivePosition.first, (player: Player) => new WalkEvent(player, intentional))
+    }
+}
+
+export class HitByPitchCommand extends HitCommand {
+    constructor (player: Player | null) {
+        super(player, OffensivePosition.first, (player: Player) => new HitByPitchEvent(player))
+    }
+}
+
+export class FieldersChoiceCommand extends HitCommand {
+    constructor (player: Player | null) {
+        super(player, OffensivePosition.first, (player: Player) => new FieldersChoiceEvent(player))
     }
 }

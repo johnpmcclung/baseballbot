@@ -10,17 +10,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "botbuilder": "^3.2.3",
-    "lodash": "^4.15.0",
-    "restify": "^4.1.1"
+    "botbuilder": "^3.4.4",
+    "lodash": "^4.16.6",
+    "restify": "^4.2.0"
   },
   "devDependencies": {
-    "@types/chai": "^3.4.33",
-    "@types/lodash": "^4.14.36",
+    "@types/chai": "^3.4.34",
+    "@types/lodash": "^4.14.38",
     "@types/mocha": "^2.2.32",
-    "@types/node": "^6.0.41",
+    "@types/node": "^6.0.46",
     "chai": "^3.5.0",
-    "mocha": "^3.0.2",
-    "typescript": "^2.0.3"
+    "mocha": "^3.1.2",
+    "typescript": "^2.0.7"
   }
 }
