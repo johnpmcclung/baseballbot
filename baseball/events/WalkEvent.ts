@@ -1,4 +1,3 @@
-import { HitEvent } from "./HitEvent";
 import { Player } from "../player";
 import { EventType } from "../enums";
 

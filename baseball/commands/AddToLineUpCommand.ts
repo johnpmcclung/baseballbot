@@ -2,7 +2,7 @@ import { GameCommand } from "./command";
 import { GameEvent, AddToLineUpEvent } from "../events";
 import { GameState } from "../aggregates/gameState";
 import { Player } from "../player";
-import { EventType, Team } from "../enums";
+import { Team } from "../enums";
 
 export class AddToLineUpCommand extends GameCommand {
     constructor(protected player: Player, protected spot: number, protected team: Team){

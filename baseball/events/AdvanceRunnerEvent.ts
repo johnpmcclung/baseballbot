@@ -1,6 +1,6 @@
 import { GameEvent } from "./event";
 import { Player } from "../player";
-import { EventType, OffensivePosition, InningHalf, DefensivePosition } from "../enums";
+import { EventType, OffensivePosition } from "../enums";
 
 export class AdvanceRunnerEvent implements GameEvent {
     type: EventType;
@@ -13,9 +13,9 @@ export class AdvanceRunnerEvent implements GameEvent {
 }
 
 export interface AdvanceRunnerEventProperties {
-    player: Player,
-    from: OffensivePosition,
-    to: OffensivePosition
+    player: Player;
+    from: OffensivePosition;
+    to: OffensivePosition;
 }
 
 export function advanceRunnerEventStringify(event: AdvanceRunnerEvent): string {

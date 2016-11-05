@@ -1,6 +1,6 @@
 import { GameCommand } from "./command";
 import { Player } from "../player";
-import { EventType, Team } from "../enums";
+import { Team } from "../enums";
 import { GameEvent, RemoveFromLineUpEvent } from "../events";
 import { GameState } from "../aggregates/gameState";
 

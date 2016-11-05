@@ -1,4 +1,3 @@
-import { GameCommand } from "./command";
 import { GameState } from "../aggregates/gameState";
 import { GameEvent, GroundOutEvent } from "../events";
 import { Player } from "../player";

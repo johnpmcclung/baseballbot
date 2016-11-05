@@ -1,4 +1,3 @@
-import * as lodash from "lodash";
 import { GameEvent } from "./events";
 import { GameCommand } from "./commands";
 import { GameState, evolve } from "./aggregates/gameState";
@@ -9,7 +8,7 @@ export class Runner {
     state: GameState;
     events: Array<GameEvent>;
 
-    constructor(events?: Array<GameEvent>) {
+    constructor(events?: Array<GameEvent> | undefined) {
         if (events) {
             this.state = new GameState();
             this.events = events;

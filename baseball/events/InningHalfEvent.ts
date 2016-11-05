@@ -12,7 +12,7 @@ export class InningHalfEvent implements GameEvent {
 }
 
 export interface InningHalfEventProperties {
-    inningHalf: InningHalf
+    inningHalf: InningHalf;
 }
 
 export function inningHalfEventStringify(event: InningHalfEvent): string {

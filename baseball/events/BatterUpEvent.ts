@@ -1,6 +1,5 @@
 import { GameEvent } from "../events";
-import { EventType, InningHalf } from "../enums";
-import { Player } from "../player";
+import { EventType } from "../enums";
 
 export class BatterUpEvent implements GameEvent {
     type: EventType;
