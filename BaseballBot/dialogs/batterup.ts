@@ -1,5 +1,5 @@
 import * as builder from "botbuilder";
-import { BatterUpCommand, Player } from "../../baseball/index";
+import { BatterUpCommand } from "../../baseball/index";
 import { GameData } from "../gameData";
 
 export function batterUpDialog() : Array<builder.IDialogWaterfallStep> {

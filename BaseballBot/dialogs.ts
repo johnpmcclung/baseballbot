@@ -1,6 +1,5 @@
 /// <reference path="../node_modules/botbuilder/lib/botbuilder.d.ts" />
 import * as builder from "botbuilder";
-import { GameData } from "./gameData";
 import { addToLineUpDialog } from "./dialogs/addToLineUp";
 import { batterUpDialog } from "./dialogs/batterup";
 import { doubleDialog } from "./dialogs/double";

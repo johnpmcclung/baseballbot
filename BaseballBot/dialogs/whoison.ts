@@ -1,5 +1,4 @@
 import * as builder from "botbuilder";
-import { BatterUpCommand, Player } from "../../baseball/index";
 import { GameData } from "../gameData";
 
 export function whoIsOnDialog(): Array<builder.IDialogWaterfallStep> {
@@ -11,7 +10,7 @@ export function whoIsOnDialog(): Array<builder.IDialogWaterfallStep> {
         let secondBase: string = "";
         let thirdBase: string = "";
 
-        if(game.state.atBat) {atBat = `${game.state.atBat.name}(${game.state.atBat.position})`}
+        if(game.state.atBat) { atBat = `${game.state.atBat.name}(${game.state.atBat.position})`; }
         game.state.firstBase.forEach(player => {
             if(player) {firstBase = firstBase + `${player.name}(${player.position})\n `;}
         });
@@ -22,6 +21,6 @@ export function whoIsOnDialog(): Array<builder.IDialogWaterfallStep> {
             if(player) {thirdBase = thirdBase + `${player.name}(${player.position})\n `;}
         });
 
-        session.endDialog(`At Bat: ${atBat}\n\n First Base: ${firstBase}\n\n Second Base: ${secondBase}\n\n Third Base: ${thirdBase}`)
+        session.endDialog(`At Bat: ${atBat}\n\n First Base: ${firstBase}\n\n Second Base: ${secondBase}\n\n Third Base: ${thirdBase}`);
     }];
 }

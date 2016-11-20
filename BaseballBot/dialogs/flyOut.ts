@@ -1,5 +1,5 @@
 import * as builder from "botbuilder";
-import { FlyOutCommand, InningHalf, Player, Team } from "../../baseball/index";
+import { FlyOutCommand, InningHalf, Player } from "../../baseball/index";
 import { GameData } from "../gameData";
 
 export function flyOutDialog(): Array<builder.IDialogWaterfallStep> {
@@ -18,7 +18,7 @@ export function flyOutDialog(): Array<builder.IDialogWaterfallStep> {
 
         lineUp.forEach((player, index) => {
             if(player){
-                players.push(`${index + 1}. ${player.name} (${player.position})`)
+                players.push(`${index + 1}. ${player.name} (${player.position})`);
             } else {
                 players.push("[empty]");
             }
@@ -30,7 +30,6 @@ export function flyOutDialog(): Array<builder.IDialogWaterfallStep> {
     }, (session: builder.Session, result: builder.IPromptChoiceResult) => {
         let game = GameData.getInstance(session);
         let spot = result!.response!.index + 1;
-        let team = session.dialogData.playerTeam;
         let player: Player;
         if(game.state.inningHalf === InningHalf.top) {
             player = <Player>game.state.homeLineUp.getSpot(spot);

@@ -22,7 +22,7 @@ export function removeFromLineUpDialog(): Array<builder.IDialogWaterfallStep> {
 
         lineUp.forEach((player, index) => {
             if(player){
-                players.push(`${index + 1}. ${player.name} (${player.position})`)
+                players.push(`${index + 1}. ${player.name} (${player.position})`);
             } else {
                 players.push("[empty]");
             }
