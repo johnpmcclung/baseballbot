@@ -1,11 +1,8 @@
-import * as chai from "chai";
 import {
     AddToLineUpCommand, AdvanceRunnerCommand, BatterUpCommand, DefensivePosition,
     FlyOutCommand, HomerunCommand, InningHalf, OffensivePosition, Player, Runner,
     SingleCommand, StartCommand, Team
 } from "../baseball/index";
-
-chai.should();
 
 describe("game runner", () => {
     it("can start game", () => {

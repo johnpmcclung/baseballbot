@@ -1,9 +1,6 @@
-import * as chai from "chai";
-import { 
-    GameEvent, GameState, EventType, evolve, RunScoredEvent, Team 
+import {
+    GameState, EventType, evolve, RunScoredEvent, Team
 } from "../baseball/index";
-
-chai.should();
 
 describe("scoring", () => {
     describe("the run scored event", () => {

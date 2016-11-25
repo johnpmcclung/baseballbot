@@ -1,42 +1,35 @@
-import * as chai from "chai";
 import * as lodash from "lodash";
 import {
-    DefensivePosition, EventType, GameEvent, GameState, HomerunCommand, HomerunEvent,
-    InningHalf, Player, RunScoredEvent, Team
+    EventType, HomerunCommand, HomerunEvent, InningHalf, Team
 } from "../baseball/index";
 import { PlayerBuilder, GameStateBuilder } from "./stateBuilder";
-
-chai.should();
 
 describe("homerun", () => {
     describe("the homerun command", () => {
         it("adds a homerun event", () => {
-            var events: Array<GameEvent> = [];
             var player = new PlayerBuilder().build();
             var state = new GameStateBuilder()
                 .withAtBat(player)
                 .build();
             var sut = new HomerunCommand(player);
 
-            sut.do(events, state);
-            lodash.findIndex(events, {type: EventType.Homerun})
+            let results = sut.do(state);
+            lodash.findIndex(results, {type: EventType.Homerun})
                 .should.not.equal(-1, "Could not find a homerun event.");
         });
         it("adds a run scored event for the visiting team in the top of the inning", () => {
-            var events: Array<GameEvent> = [];
             var player = new PlayerBuilder().build();
             var state = new GameStateBuilder()
                 .withAtBat(player)
                 .build();
             var sut = new HomerunCommand(player);
 
-            sut.do(events, state);
+            let results = sut.do(state);
 
-            lodash.findIndex(events, {type: EventType.RunScored, properties: { team: Team.visitor }})
+            lodash.findIndex(results, {type: EventType.RunScored, properties: { team: Team.visitor }})
                 .should.not.equal(-1, "Could not find a run scored event for the visiting team.");
         });
         it("adds a run scored event for the home team in the bottom of the inning", () => {
-            var events: Array<GameEvent> = [];
             var player = new PlayerBuilder().build();
             var state = new GameStateBuilder()
                 .withAtBat(player)
@@ -44,13 +37,12 @@ describe("homerun", () => {
                 .build();
             var sut = new HomerunCommand(player);
 
-            sut.do(events, state);
+            let results = sut.do(state);
 
-            lodash.findIndex(events, {type: EventType.RunScored, properties: { team: Team.home }})
+            lodash.findIndex(results, {type: EventType.RunScored, properties: { team: Team.home }})
                 .should.not.equal(-1, "Could not find a run scored event for the visiting team.");
         });
         it("fails if the game is already over", () => {
-            var events: Array<GameEvent> = [];
             var player = new PlayerBuilder().build();
             var state = new GameStateBuilder()
                 .withAtBat(player)
@@ -58,11 +50,10 @@ describe("homerun", () => {
                 .build();
             var sut = new HomerunCommand(player);
 
-            (function() { sut.do(events, state); }).should
+            (function() { sut.do(state); }).should
                 .throw("Game has already finished.", "Game was allowed to start a finished game.");
         });
         it("throws an error if the game is not started", () => {
-            var events: Array<GameEvent> = [];
             var player = new PlayerBuilder().build();
             var state = new GameStateBuilder()
                 .withAtBat(player)
@@ -70,17 +61,16 @@ describe("homerun", () => {
                 .build();
             var sut = new HomerunCommand(player);
 
-            (function() { sut.do(events, state); }).should
+            (function() { sut.do(state); }).should
                 .throw("Game has not started.",
                 "Game was allowed to record a homerun before starting.");
         });
         it("throws an error if no batter is up", () => {
-            var events: Array<GameEvent> = [];
             var player = new PlayerBuilder().build();
             var state = new GameStateBuilder().build();
             var sut = new HomerunCommand(player);
 
-            (function() { sut.do(events, state); }).should
+            (function() { sut.do(state); }).should
                 .throw("There is no batter at the plate.",
                 "Game was allowed to record a homerun with no batter up.");
         });

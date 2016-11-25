@@ -7,12 +7,12 @@ export class BatterUpCommand extends GameCommand {
         super();
     }
 
-    do(events: Array<GameEvent>, state: GameState) {
+    do(state: GameState): Array<GameEvent> {
         super.checkInGameCommand(state);
         if (state.atBat) { throw new Error("Batter is already at the plate."); }
         if (!this.validate(state)) { throw new Error("Game is in an invalid state for a new batter."); }
 
-        events.push(new BatterUpEvent());
+        return [new BatterUpEvent()];
     }
 
     private validate(state: GameState): boolean {

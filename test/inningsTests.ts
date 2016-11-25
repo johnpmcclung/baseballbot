@@ -1,10 +1,8 @@
-import { should, expect } from "chai";
+import { expect } from "chai";
 import {
-    EventType, evolve, GameEvent, GameOverEvent, GameState, 
+    EventType, evolve, GameOverEvent, GameState,
     InningEvent, InningHalf, InningHalfEvent, Team
 } from "../baseball/index";
-
-should();
 
 describe("innings", () => {
     describe("the inning event", () => {

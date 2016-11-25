@@ -9,8 +9,9 @@ export class AdvanceRunnerCommand extends GameCommand {
         super();
     }
 
-    do(events: Array<GameEvent>, state: GameState): void {
+    do(state: GameState): Array<GameEvent> {
         super.checkInGameCommand(state);
+        let events: Array<GameEvent> = [];
 
         var from: OffensivePosition | null;
         if(!this.player) {
@@ -24,7 +25,7 @@ export class AdvanceRunnerCommand extends GameCommand {
         if (from > this.to) { throw new Error("Runner are not allowed to move backwards."); }
         events.push(new AdvanceRunnerEvent(<Player>this.player, <OffensivePosition>from, this.to));
 
-        if (this.to !== OffensivePosition.home) { return; }
+        if (this.to !== OffensivePosition.home) { return events; }
 
         if (state.inningHalf === InningHalf.top) {
             events.push(new RunScoredEvent(Team.visitor));
@@ -32,6 +33,7 @@ export class AdvanceRunnerCommand extends GameCommand {
         if (state.inningHalf === InningHalf.bottom) {
             events.push(new RunScoredEvent(Team.home));
         }
+        return events;
     }
 
     private findPlayer(player: Player, state: GameState): OffensivePosition | null {

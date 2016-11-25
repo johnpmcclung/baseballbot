@@ -8,9 +8,9 @@ export class LineOutCommand extends OutCommand {
         super();
     }
 
-    do(events: Array<GameEvent>, state: GameState) {
+    do(state: GameState) {
         super.checkAtBatCommand(state);
-        super.do(events, state);
+        let events = super.do(state);
         events.push(new LineOutEvent(<Player>state.atBat, this.defensivePlayer));
         return events;
     }

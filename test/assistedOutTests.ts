@@ -1,8 +1,7 @@
-import * as chai from "chai";
-import * as lodash from "lodash";
+import * as _ from "lodash";
 import {
-    AssistedOutCommand, AssistedOutEvent, DefensivePosition, EventType, evolve, 
-    GameEvent, GameState, InningHalf, Player
+    AssistedOutCommand, AssistedOutEvent, DefensivePosition, EventType, evolve,
+    Player
 } from "../baseball/index";
 import { GameStateBuilder, PlayerBuilder } from "./stateBuilder";
 
@@ -16,14 +15,13 @@ describe("assisted out command", () => {
             new PlayerBuilder().withName("Jack Clark")
                 .withPosition(DefensivePosition.firstBase).build()
         ];
-        var events: Array<GameEvent> = [];
         var outPlayer = new PlayerBuilder().build();
         var state = new GameStateBuilder().withAtBat(outPlayer).build();
         var sut = new AssistedOutCommand(defensivePlayers, [outPlayer]);
 
-        sut.do(events, state);
+        let results = sut.do(state);
 
-        lodash.findIndex(events, { type: EventType.AssistedOut })
+        _.findIndex(results, { type: EventType.AssistedOut })
             .should.not.equal(-1, "Could not find a batter force out event.");
     });
     it("adds a list of defensive players to the event", () => {
@@ -35,14 +33,13 @@ describe("assisted out command", () => {
             new PlayerBuilder().withName("Jack Clark")
                 .withPosition(DefensivePosition.firstBase).build()
         ];
-        var events: Array<GameEvent> = [];
         var outPlayer = new PlayerBuilder().build();
         var state = new GameStateBuilder().withAtBat(outPlayer).build();
         var sut = new AssistedOutCommand(defensivePlayers, [outPlayer]);
 
-        sut.do(events, state);
+        let results = sut.do(state);
 
-        var result = lodash.find(events, { type: EventType.AssistedOut });
+        var result = _.find(results, { type: EventType.AssistedOut });
         result.should.be.an("object");
         (<AssistedOutEvent>result).properties.defensivePlayers[0].name.should.equal("Ozzie Smith");
         (<AssistedOutEvent>result).properties.defensivePlayers[1].name.should.equal("Tommy Herr");
@@ -63,13 +60,12 @@ describe("assisted out command", () => {
             new PlayerBuilder().withName("Tim McCarver")
                 .withPosition(DefensivePosition.catcher).build()
         ];
-        var events: Array<GameEvent> = [];
         var state = new GameStateBuilder().withAtBat(outPlayers[0]).build();
         var sut = new AssistedOutCommand(defensivePlayers, outPlayers);
 
-        sut.do(events, state);
+        let results = sut.do(state);
 
-        var result = lodash.find(events, { type: EventType.AssistedOut });
+        var result = _.find(results, { type: EventType.AssistedOut });
         (<AssistedOutEvent>result).properties.outPlayers[0].name.should.equal("Bob Gibson");
         (<AssistedOutEvent>result).properties.outPlayers[1].name.should.equal("Tim McCarver");
     });
@@ -88,13 +84,12 @@ describe("assisted out command", () => {
             new PlayerBuilder().withName("Tim McCarver")
                 .withPosition(DefensivePosition.catcher).build()
         ];
-        var events: Array<GameEvent> = [];
         var state = new GameStateBuilder().withAtBat(outPlayers[0]).build();
         var sut = new AssistedOutCommand(defensivePlayers, outPlayers);
 
-        sut.do(events, state);
+        let results = sut.do(state);
 
-        var result = lodash.filter(events, { type: EventType.Out });
+        var result = _.filter(results, { type: EventType.Out });
         result.length.should.equal(2);
     });
     it("throws an error if no one is at bat", () => {
@@ -112,11 +107,10 @@ describe("assisted out command", () => {
             new PlayerBuilder().withName("Tim McCarver")
                 .withPosition(DefensivePosition.catcher).build()
         ];
-        var events: Array<GameEvent> = [];
         var state = new GameStateBuilder().build();
         var sut = new AssistedOutCommand(defensivePlayers, outPlayers);
 
-        (function() { sut.do(events, state); }).should
+        (function() { sut.do(state); }).should
             .throw("There is no batter at the plate.",
                 "Assisted out was allowed without a batter.");
     });
@@ -127,11 +121,10 @@ describe("assisted out command", () => {
             new PlayerBuilder().withName("Tim McCarver")
                 .withPosition(DefensivePosition.catcher).build()
         ];
-        var events: Array<GameEvent> = [];
         var state = new GameStateBuilder().withAtBat(outPlayers[0]).build();
         var sut = new AssistedOutCommand([], outPlayers);
 
-        (function() { sut.do(events, state); }).should
+        (function() { sut.do(state); }).should
             .throw("An assisted out requires two defensive players.",
                 "Assisted out was allowed without two defensive players.");
     });
@@ -145,11 +138,10 @@ describe("assisted out command", () => {
             new PlayerBuilder().withName("Jack Clark")
                 .withPosition(DefensivePosition.firstBase).build()
         ];
-        var events: Array<GameEvent> = [];
         var state = new GameStateBuilder().withAtBat(batter).build();
         var sut = new AssistedOutCommand(defensivePlayers, []);
 
-        (function() { sut.do(events, state); }).should
+        (function() { sut.do(state); }).should
             .throw("An assisted out requires at least one player who is out to be supplied.",
                 "Assisted out was allowed without the player who is out.");
     });

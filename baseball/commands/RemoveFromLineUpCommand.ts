@@ -9,7 +9,7 @@ export class RemoveFromLineUpCommand extends GameCommand {
         super();
     }
 
-    do(events: Array<GameEvent>, state: GameState): void {
-        events.push(new RemoveFromLineUpEvent(this.player, this.team));
+    do(state: GameState): Array<GameEvent> {
+        return [new RemoveFromLineUpEvent(this.player, this.team)];
     }
 }

@@ -9,12 +9,12 @@ export class AddToLineUpCommand extends GameCommand {
         super();
     }
 
-    do(events: Array<GameEvent>, state: GameState): void {
+    do(state: GameState): Array<GameEvent> {
         if(this.team === Team.home) {
             state.homeLineUp.validateAdd(this.player, this.spot);
         } else {
             state.visitorLineUp.validateAdd(this.player, this.spot);
         }
-        events.push(new AddToLineUpEvent(this.player, this.spot, this.team));
+        return [new AddToLineUpEvent(this.player, this.spot, this.team)];
     }
 };

@@ -2,7 +2,7 @@ import { GameEvent } from "../events";
 import { GameState } from "../aggregates/gameState";
 
 export abstract class GameCommand {
-    abstract do(events: Array<GameEvent>, state: GameState): void;
+    abstract do(state: GameState): Array<GameEvent>;
 
     protected checkInGameCommand(state: GameState) {
         if (!state.started) { throw new Error("Game has not started."); };

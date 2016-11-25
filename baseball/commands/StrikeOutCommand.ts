@@ -8,9 +8,9 @@ export class StrikeOutCommand extends OutCommand {
         super();
     }
 
-    do(events: Array<GameEvent>, state: GameState) {
+    do(state: GameState): Array<GameEvent> {
         super.checkAtBatCommand(state);
-        super.do(events, state);
+        let events = super.do(state);
         events.push(new StrikeOutEvent(<Player>state.atBat, this.defensivePlayer, this.looking));
         return events;
     }

@@ -1,11 +1,6 @@
-import * as chai from "chai";
-import * as lodash from "lodash";
 import {
-    EventType, evolve, GameEvent, GameOverEvent, GameState, InningEvent, InningHalfEvent,
-    InningHalf, OutCommand, OutEvent, Team
+    EventType, evolve, GameState, OutEvent
 } from "../baseball/index";
-
-chai.should();
 
 describe("outs", () => {
     describe("the out event", () => {

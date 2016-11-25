@@ -10,11 +10,12 @@ export class HitCommand extends AdvanceRunnerCommand {
         super(to, player);
     }
 
-    do(events: Array<GameEvent>, state: GameState) {
+    do(state: GameState): Array<GameEvent> {
         super.checkAtBatCommand(state);
-        super.do(events, state);
+        let events = super.do(state);
 
-        if(!this.player) { throw new Error("No player found.")}
+        if(!this.player) { throw new Error("No player found."); }
         events.push(this.eventFunc(<Player>this.player));
+        return events;
     }
 }

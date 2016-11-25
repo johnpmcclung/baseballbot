@@ -5,6 +5,6 @@ import { FieldersChoiceEvent } from "../events";
 
 export class FieldersChoiceCommand extends HitCommand {
     constructor (player: Player | null) {
-        super(player, OffensivePosition.first, (player: Player) => new FieldersChoiceEvent(player))
+        super(player, OffensivePosition.first, (player: Player) => new FieldersChoiceEvent(player));
     }
 }

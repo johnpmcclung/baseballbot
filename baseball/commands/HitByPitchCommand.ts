@@ -5,6 +5,6 @@ import { HitByPitchEvent } from "../events";
 
 export class HitByPitchCommand extends HitCommand {
     constructor (player: Player | null) {
-        super(player, OffensivePosition.first, (player: Player) => new HitByPitchEvent(player))
+        super(player, OffensivePosition.first, (player: Player) => new HitByPitchEvent(player));
     }
 }

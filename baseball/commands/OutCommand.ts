@@ -5,10 +5,11 @@ import { InningHalf, Team } from "../enums";
 import { GameOverEvent, InningEvent, InningHalfEvent, OutEvent } from "../events";
 
 export abstract class OutCommand extends GameCommand {
-    do(events: Array<GameEvent>, state: GameState): void {
+    do(state: GameState): Array<GameEvent> {
+        let events: Array<GameEvent> = [];
         if (state.outs !== 2) {
             events.push(new OutEvent(state.outs + 1));
-            return;
+            return events;
         }
 
         events.push(new OutEvent(0));
@@ -16,7 +17,7 @@ export abstract class OutCommand extends GameCommand {
         if (this.gameOverCheck(state)) {
             events.push(new GameOverEvent(state.homeScore > state.visitorScore ?
                 Team.home : Team.visitor));
-            return;
+            return events;
         }
 
         if (state.inningHalf === InningHalf.top) {
@@ -27,6 +28,7 @@ export abstract class OutCommand extends GameCommand {
         } else {
             throw new Error("Game is not started or already ended.");
         }
+        return events;
     }
 
     private gameOverCheck(state: GameState): boolean {

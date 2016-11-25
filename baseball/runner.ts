@@ -3,8 +3,6 @@ import { GameCommand } from "./commands";
 import { GameState, evolve } from "./aggregates/gameState";
 
 export class Runner {
-    private eventIndex: number = 0;
-
     state: GameState;
     events: Array<GameEvent>;
 
@@ -12,7 +10,7 @@ export class Runner {
         if (events) {
             this.state = new GameState();
             this.events = events;
-            this.evolveState();
+            this.evolveState(events);
         } else {
             this.state = new GameState();
             this.events = [];
@@ -20,13 +18,12 @@ export class Runner {
     }
 
     do(command: GameCommand) {
-        command.do(this.events, this.state);
-        this.evolveState();
+        let newEvents = command.do(this.state);
+        this.evolveState(newEvents);
+        this.events = this.events.concat(newEvents);
     }
 
-    private evolveState() {
-        this.events.slice(this.eventIndex)
-            .forEach((event) => evolve(event, this.state));
-        this.eventIndex = this.events.length;
+    private evolveState(events: Array<GameEvent>) {
+        events.forEach((event) => evolve(event, this.state));
     }
 }
