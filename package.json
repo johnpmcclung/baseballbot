@@ -2,6 +2,10 @@
   "name": "baseball_bot",
   "version": "1.0.0",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/johnpmcclung/baseballbot"
+  },
   "main": "index.js",
   "scripts": {
     "test": "mocha build\\test",
