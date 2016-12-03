@@ -7,7 +7,7 @@ export class RunScoredEvent implements GameEvent {
 
     constructor (team: Team) {
         this.type = EventType.RunScored;
-        this.properties = {team: team};
+        this.properties = { "team": team };
     }
 }
 

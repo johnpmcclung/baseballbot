@@ -1,5 +1,5 @@
-import { AddToLineUpEvent } from "../../events";
 import { Team } from "../../enums";
+import { AddToLineUpEvent } from "../../events";
 import { GameState } from "./state";
 
 export function addToLineUpEvolver(event: AddToLineUpEvent, state: GameState): void {

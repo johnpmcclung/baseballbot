@@ -1,7 +1,7 @@
-import { OutCommand } from "./OutCommand";
-import { Player } from "../player";
-import { GameEvent, AssistedOutEvent } from "../events";
 import { GameState } from "../aggregates/gameState";
+import { AssistedOutEvent, GameEvent } from "../events";
+import { Player } from "../player";
+import { OutCommand } from "./OutCommand";
 
 export class AssistedOutCommand extends OutCommand {
     constructor(private defensivePlayers: Player[], private outPlayers: Player[]) { super(); }

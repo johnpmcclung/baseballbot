@@ -1,12 +1,12 @@
-import { HitEvent } from "./HitEvent";
-import { Player } from "../player";
 import { EventType } from "../enums";
+import { Player } from "../player";
+import { HitEvent } from "./HitEvent";
 
 export class FieldersChoiceEvent extends HitEvent {
     constructor(player: Player) {
         super();
         this.type = EventType.FieldersChoice;
-        this.properties = {player: player}; 
+        this.properties = {"player": player};
     }
 }
 

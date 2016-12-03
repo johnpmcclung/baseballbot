@@ -5,14 +5,14 @@ import {
 describe("outs", () => {
     describe("the out event", () => {
         it("should be of type Out", () => {
-            var sut = new OutEvent(0);
+            let sut = new OutEvent(0);
 
             sut.type.should.equal(EventType.Out);
         });
         it("should set the game state to the new out total", () => {
-            var outs = 2;
-            var state = new GameState();
-            var sut = new OutEvent(outs);
+            let outs = 2;
+            let state = new GameState();
+            let sut = new OutEvent(outs);
 
             evolve(sut, state);
 

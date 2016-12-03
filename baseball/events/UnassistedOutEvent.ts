@@ -1,6 +1,6 @@
 import { EventType } from "../enums";
-import { GameEvent } from "./event";
 import { Player } from "../player";
+import { GameEvent } from "./event";
 
 export abstract class UnassistedOutEvent implements GameEvent {
     type: EventType;

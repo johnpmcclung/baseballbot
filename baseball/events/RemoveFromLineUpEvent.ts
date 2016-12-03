@@ -1,6 +1,6 @@
-import { GameEvent } from "./event";
-import { Player } from "../player";
 import { EventType, Team } from "../enums";
+import { Player } from "../player";
+import { GameEvent } from "./event";
 
 export class RemoveFromLineUpEvent implements GameEvent {
     public type: EventType;
@@ -9,8 +9,8 @@ export class RemoveFromLineUpEvent implements GameEvent {
     constructor(player: Player, team: Team) {
         this.type = EventType.RemoveFromLineUp;
         this.properties = {
-            player: player,
-            team: team
+            "player": player,
+            "team": team
         };
     }
 }

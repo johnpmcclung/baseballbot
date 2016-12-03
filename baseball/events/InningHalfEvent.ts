@@ -7,7 +7,7 @@ export class InningHalfEvent implements GameEvent {
 
     constructor(inningHalf: InningHalf) {
         this.type = EventType.InningHalf;
-        this.properties =  { inningHalf: inningHalf }
+        this.properties =  { "inningHalf": inningHalf };
     }
 }
 

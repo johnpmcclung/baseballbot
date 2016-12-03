@@ -1,8 +1,8 @@
-import { GameCommand } from "./command";
-import { Player } from "../player";
+import { GameState } from "../aggregates/gameState";
 import { Team } from "../enums";
 import { GameEvent, RemoveFromLineUpEvent } from "../events";
-import { GameState } from "../aggregates/gameState";
+import { Player } from "../player";
+import { GameCommand } from "./command";
 
 export class RemoveFromLineUpCommand extends GameCommand {
     constructor(protected player: Player, protected team: Team) {

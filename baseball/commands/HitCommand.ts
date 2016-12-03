@@ -1,9 +1,8 @@
-import { AdvanceRunnerCommand } from "./AdvanceRunnerCommand";
 import { GameState } from "../aggregates/gameState";
-import { GameEvent } from "../events";
-import { Player } from "../player";
-import { HitEvent } from "../events";
 import { OffensivePosition } from "../enums";
+import { GameEvent, HitEvent } from "../events";
+import { Player } from "../player";
+import { AdvanceRunnerCommand } from "./AdvanceRunnerCommand";
 
 export class HitCommand extends AdvanceRunnerCommand {
     constructor(player: Player | null, to: OffensivePosition, protected eventFunc: (player: Player) => HitEvent) {

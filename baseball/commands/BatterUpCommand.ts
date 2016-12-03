@@ -1,6 +1,6 @@
-import { GameCommand } from "./command";
-import { GameEvent, BatterUpEvent } from "../events";
 import { GameState } from "../aggregates/gameState";
+import { BatterUpEvent, GameEvent } from "../events";
+import { GameCommand } from "./command";
 
 export class BatterUpCommand extends GameCommand {
     constructor() {

@@ -7,7 +7,7 @@ export class GameOverEvent implements GameEvent {
 
     constructor (winner: Team) {
         this.type = EventType.GameOver;
-        this.properties = { winner: winner };
+        this.properties = { "winner": winner };
     }
 }
 

@@ -1,6 +1,6 @@
 import * as _ from "lodash";
-import { GameState } from "./state";
 import { AssistedOutEvent } from "../../events";
+import { GameState } from "./state";
 
 export function assistedOutEvolver (event: AssistedOutEvent, state: GameState): void {
     event.properties.outPlayers.forEach(player => {

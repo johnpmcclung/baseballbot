@@ -8,7 +8,7 @@ export function addToLineUpDialog(): Array<builder.IDialogWaterfallStep> {
     }, (session: builder.Session, result: builder.IPromptTextResult) => {
         session.dialogData.playerName = result.response;
         builder.Prompts.choice(session, `What position does ${result.response} play?`, [
-            "Pitcher", "Catcher", "First Base", "Second Base", "Third Base", "Shortstop", 
+            "Pitcher", "Catcher", "First Base", "Second Base", "Third Base", "Shortstop",
             "Left Field", "Center Field", "Right Field"
             ]);
     }, (session: builder.Session, result: builder.IPromptChoiceResult) => {
@@ -22,10 +22,10 @@ export function addToLineUpDialog(): Array<builder.IDialogWaterfallStep> {
             session.endDialog("Invalid Line Up spot.");
             return;
         }
-        var player = new Player(session.dialogData.playerName, session.dialogData.playerPosition);
-        var spot = result!.response!;
-        var team = session.dialogData.playerTeam;
-        var game = GameData.getInstance(session);
+        let player = new Player(session.dialogData.playerName, session.dialogData.playerPosition);
+        let spot = result!.response!;
+        let team = session.dialogData.playerTeam;
+        let game = GameData.getInstance(session);
         try {
             game.do(new AddToLineUpCommand(player, spot, team));
             GameData.save(session, game);
@@ -36,6 +36,6 @@ export function addToLineUpDialog(): Array<builder.IDialogWaterfallStep> {
         catch(error) {
             session.endDialog(error.message);
         }
-        session.endDialogWithResult({response: player, resumed: builder.ResumeReason.completed});
+        session.endDialogWithResult({ "response": player, "resumed": builder.ResumeReason.completed });
     }];
 }

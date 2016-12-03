@@ -4,8 +4,8 @@ import { GameData } from "../gameData";
 
 export function removeFromLineUpDialog(): Array<builder.IDialogWaterfallStep> {
     return [(session: builder.Session) => {
-        builder.Prompts.choice(session, 
-            `Remove a player from the line up of which team?`, 
+        builder.Prompts.choice(session,
+            `Remove a player from the line up of which team?`,
             ["Home", "Visitors"]);
     }, (session: builder.Session, result: builder.IPromptChoiceResult) => {
         session.dialogData.playerTeam = result!.response!.index;
@@ -28,7 +28,7 @@ export function removeFromLineUpDialog(): Array<builder.IDialogWaterfallStep> {
             }
         });
 
-        builder.Prompts.choice(session, 
+        builder.Prompts.choice(session,
             `Which player should be removed?`,
             players);
     }, (session: builder.Session, result: builder.IPromptChoiceResult) => {

@@ -1,7 +1,7 @@
-import { GameCommand } from "./command";
 import { GameState } from "../aggregates/gameState";
 import { InningHalf } from "../enums";
 import { GameEvent, InningEvent, InningHalfEvent, StartEvent } from "../events";
+import { GameCommand } from "./command";
 
 export class StartCommand extends GameCommand {
     do(state: GameState): Array<GameEvent> {

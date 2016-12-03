@@ -1,12 +1,15 @@
-import { UnassistedOutEvent } from "./UnassistedOutEvent";
 import { EventType } from "../enums";
 import { Player } from "../player";
+import { UnassistedOutEvent } from "./UnassistedOutEvent";
 
 export class LineOutEvent extends UnassistedOutEvent {
     constructor(offensivePlayer: Player, defensivePlayer: Player) {
         super();
         this.type = EventType.LineOut;
-        this.properties = { offensivePlayer: offensivePlayer, defensivePlayer: defensivePlayer };
+        this.properties = {
+            "offensivePlayer": offensivePlayer,
+            "defensivePlayer": defensivePlayer
+        };
     }
 }
 

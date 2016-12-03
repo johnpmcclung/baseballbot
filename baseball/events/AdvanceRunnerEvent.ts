@@ -1,6 +1,6 @@
-import { GameEvent } from "./event";
-import { Player } from "../player";
 import { EventType, OffensivePosition } from "../enums";
+import { Player } from "../player";
+import { GameEvent } from "./event";
 
 export class AdvanceRunnerEvent implements GameEvent {
     type: EventType;
@@ -8,7 +8,11 @@ export class AdvanceRunnerEvent implements GameEvent {
 
     constructor(player: Player, from: OffensivePosition, to: OffensivePosition) {
         this.type = EventType.AdvanceRunner;
-        this.properties = {player: player, from: from, to: to}
+        this.properties = {
+            "player": player,
+            "from": from,
+            "to": to
+        };
     }
 }
 

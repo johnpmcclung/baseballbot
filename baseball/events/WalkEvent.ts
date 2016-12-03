@@ -1,10 +1,10 @@
-import { Player } from "../player";
 import { EventType } from "../enums";
+import { Player } from "../player";
 
 export class WalkEvent {
     constructor(player: Player, intentional: boolean) {
         this.type = EventType.Walk;
-        this.properties = {player: player, intentional: intentional};
+        this.properties = {"player": player, "intentional": intentional};
     }
     type: EventType;
     properties: WalkEventProperties;

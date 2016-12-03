@@ -1,5 +1,5 @@
-import { GameEvent } from "../events";
 import { GameState } from "../aggregates/gameState";
+import { GameEvent } from "../events";
 
 export abstract class GameCommand {
     abstract do(state: GameState): Array<GameEvent>;

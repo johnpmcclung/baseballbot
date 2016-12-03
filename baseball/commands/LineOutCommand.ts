@@ -1,7 +1,7 @@
-import { GameEvent, LineOutEvent } from "../events";
 import { GameState } from "../aggregates/gameState";
-import { OutCommand } from "./OutCommand";
+import { LineOutEvent } from "../events";
 import { Player } from "../player";
+import { OutCommand } from "./OutCommand";
 
 export class LineOutCommand extends OutCommand {
     constructor(private defensivePlayer: Player) {

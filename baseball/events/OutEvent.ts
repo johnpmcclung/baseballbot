@@ -7,7 +7,7 @@ export class OutEvent implements GameEvent {
 
     constructor(outs: number) {
         this.type = EventType.Out;
-        this.properties = { outs: outs };
+        this.properties = { "outs": outs };
     }
 }
 

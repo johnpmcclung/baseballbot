@@ -7,7 +7,7 @@ export class InningEvent implements GameEvent {
 
     constructor(inningNumber: number) {
         this.type = EventType.Inning;
-        this.properties = { inningNumber: inningNumber };
+        this.properties = { "inningNumber": inningNumber };
     }
 }
 

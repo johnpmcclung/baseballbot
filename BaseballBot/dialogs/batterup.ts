@@ -4,7 +4,7 @@ import { GameData } from "../gameData";
 
 export function batterUpDialog() : Array<builder.IDialogWaterfallStep> {
     return [(session: builder.Session) => {
-        var game = GameData.getInstance(session);
+        let game = GameData.getInstance(session);
         try {
             game.do(new BatterUpCommand());
             GameData.save(session, game);

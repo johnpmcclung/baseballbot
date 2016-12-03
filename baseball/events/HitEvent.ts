@@ -1,5 +1,5 @@
-import { GameEvent } from "../events";
 import { EventType } from "../enums";
+import { GameEvent } from "../events";
 import { Player } from "../player";
 
 export abstract class HitEvent implements GameEvent {

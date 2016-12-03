@@ -2,20 +2,20 @@ import { DefensivePosition, GameState, InningHalf, LineUp, Player } from "../bas
 
 export class GameStateBuilder {
     private state: GameState = {
-        atBat: null,
-        firstBase: [],
-        gameOver: false,
-        homeLineUp: new LineUp(),
-        homeScore: 0,
-        inning: 1,
-        inningHalf: InningHalf.top,
-        outs: 0,
-        secondBase: [],
-        started: true,
-        thirdBase: [],
-        visitorLineUp: new LineUp(),
-        visitorScore: 0,
-        winner: null
+        "atBat": null,
+        "firstBase": [],
+        "gameOver": false,
+        "homeLineUp": new LineUp(),
+        "homeScore": 0,
+        "inning": 1,
+        "inningHalf": InningHalf.top,
+        "outs": 0,
+        "secondBase": [],
+        "started": true,
+        "thirdBase": [],
+        "visitorLineUp": new LineUp(),
+        "visitorScore": 0,
+        "winner": null
     };
 
     public withInningHalf(inningHalf: InningHalf): this {
@@ -90,8 +90,8 @@ export class GameStateBuilder {
 
 export class PlayerBuilder {
     private player: Player = {
-        name: "Turd Ferguson",
-        position: DefensivePosition.catcher
+        "name": "Turd Ferguson",
+        "position": DefensivePosition.catcher
     };
 
     public withName(name: string): this {

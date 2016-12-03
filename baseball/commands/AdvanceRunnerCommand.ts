@@ -1,8 +1,8 @@
-import { GameCommand } from "./command";
-import { GameEvent, AdvanceRunnerEvent, RunScoredEvent } from "../events";
 import { GameState } from "../aggregates/gameState";
+import { InningHalf, OffensivePosition, Team } from "../enums";
+import { AdvanceRunnerEvent, GameEvent, RunScoredEvent } from "../events";
 import { Player } from "../player";
-import { OffensivePosition, Team, InningHalf } from "../enums";
+import { GameCommand } from "./command";
 
 export class AdvanceRunnerCommand extends GameCommand {
     constructor(protected to: OffensivePosition, protected player: Player | null) {
@@ -13,7 +13,7 @@ export class AdvanceRunnerCommand extends GameCommand {
         super.checkInGameCommand(state);
         let events: Array<GameEvent> = [];
 
-        var from: OffensivePosition | null;
+        let from: OffensivePosition | null;
         if(!this.player) {
             this.player = state.atBat;
             from = OffensivePosition.atBat;

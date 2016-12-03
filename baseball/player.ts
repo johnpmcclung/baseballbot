@@ -11,7 +11,7 @@ export class LineUp {
     onDeck: number;
 
     constructor() {
-        for(var i = 0; i < 20; i++){
+        for(let i = 0; i < 20; i++){
             this.lineUp[i] = null;
         }
         this.currentBatter = 0 + LineUp.battingSpotOffset;
@@ -64,10 +64,10 @@ export class LineUp {
     }
 
     public remove (player: Player): void {
-        this.lineUp = this.lineUp.filter((playerInLineUp) => { 
-            return playerInLineUp === null || 
+        this.lineUp = this.lineUp.filter((playerInLineUp) => {
+            return playerInLineUp === null ||
                 (player.name !== playerInLineUp.name &&
-                 player.position !== playerInLineUp.position); 
-        })
+                 player.position !== playerInLineUp.position);
+        });
     }
 }

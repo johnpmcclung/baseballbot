@@ -1,49 +1,49 @@
 import { expect } from "chai";
 import {
     AddToLineUpCommand, AddToLineUpEvent,
-    DefensivePosition, GameState, EventType, LineUp, Player,
+    DefensivePosition, EventType, GameState, LineUp, Player,
     RemoveFromLineUpCommand, RemoveFromLineUpEvent, Team
 } from "../baseball";
-import { addToLineUpEvolver } from "../baseball/aggregates/gamestate/addToLineUpEvolver";
-import { removeFromLineUpEvolver } from "../baseball/aggregates/gamestate/removeFromLineUpEvolver";
+import { addToLineUpEvolver } from "../baseball/aggregates/gameState/addToLineUpEvolver";
+import { removeFromLineUpEvolver } from "../baseball/aggregates/gameState/removeFromLineUpEvolver";
 import { GameStateBuilder, PlayerBuilder } from "./stateBuilder";
 
 describe("LineUp", () => {
     describe("class", () => {
         it("allows you to add a player.", () => {
-            var player = new Player("Bob Gibson", DefensivePosition.pitcher);
-            var sut = new LineUp();
+            let player = new Player("Bob Gibson", DefensivePosition.pitcher);
+            let sut = new LineUp();
 
             sut.add(player, 1);
-            var result = sut.getPosition(DefensivePosition.pitcher);
+            let result = sut.getPosition(DefensivePosition.pitcher);
 
             expect(result).to.not.be.null;
             (<Player>result).should.equal(player);
         });
         it("allows you to get a player by DefensivePosition.", () => {
-            var player = new Player("Bob Gibson", DefensivePosition.pitcher);
-            var sut = new LineUp();
+            let player = new Player("Bob Gibson", DefensivePosition.pitcher);
+            let sut = new LineUp();
 
             sut.add(player, 1);
-            var result = sut.getPosition(DefensivePosition.pitcher);
+            let result = sut.getPosition(DefensivePosition.pitcher);
 
             expect(result).to.not.be.null;
             (<Player>result).should.equal(player);
         });
         it("allows you to get a player by spot in lineup.", () => {
-            var player = new Player("Bob Gibson", DefensivePosition.pitcher);
-            var sut = new LineUp();
+            let player = new Player("Bob Gibson", DefensivePosition.pitcher);
+            let sut = new LineUp();
 
             sut.add(player, 2);
-            var result = sut.getSpot(2);
+            let result = sut.getSpot(2);
 
             expect(result).to.not.be.null;
             (<Player>result).should.equal(player);
         });
         it("does not allow you to add a player if one already exists in the spot.", () => {
-            var player1 = new Player("Ozzie Smith", DefensivePosition.shortStop);
-            var player2 = new Player("Bob Gibson", DefensivePosition.pitcher);
-            var sut = new LineUp();
+            let player1 = new Player("Ozzie Smith", DefensivePosition.shortStop);
+            let player2 = new Player("Bob Gibson", DefensivePosition.pitcher);
+            let sut = new LineUp();
 
             sut.add(player1, 2);
 
@@ -51,9 +51,9 @@ describe("LineUp", () => {
                 .throw("That position in the line up is already occupied.");
         });
         it("does not allow you to add a player if one already exists in the position.", () => {
-            var player1 = new Player("Cy Young", DefensivePosition.pitcher);
-            var player2 = new Player("Bob Gibson", DefensivePosition.pitcher);
-            var sut = new LineUp();
+            let player1 = new Player("Cy Young", DefensivePosition.pitcher);
+            let player2 = new Player("Bob Gibson", DefensivePosition.pitcher);
+            let sut = new LineUp();
 
             sut.add(player1, 2);
 
@@ -61,14 +61,14 @@ describe("LineUp", () => {
                 .throw("That position in the line up is already occupied.");
         });
         it("getting an empty position returns null.", () => {
-            var sut = new LineUp();
+            let sut = new LineUp();
 
             expect(sut.getSpot(1)).to.be.null;
         });
         it("allows you to remove a player.", () => {
-            var player = new Player("Bob Gibson", DefensivePosition.pitcher);
-            var player1 = new Player("Bob Gibson", DefensivePosition.pitcher);
-            var sut = new LineUp();
+            let player = new Player("Bob Gibson", DefensivePosition.pitcher);
+            let player1 = new Player("Bob Gibson", DefensivePosition.pitcher);
+            let sut = new LineUp();
 
             sut.add(player, 2);
             sut.remove(player1);
@@ -77,41 +77,41 @@ describe("LineUp", () => {
             expect(sut.getPosition(player.position)).to.be.null;
         });
         it("allows you get batter.", () => {
-            var player = new Player("Bob Gibson", DefensivePosition.pitcher);
-            var sut = new LineUp();
+            let player = new Player("Bob Gibson", DefensivePosition.pitcher);
+            let sut = new LineUp();
 
             sut.add(player, 1);
             sut.nextBatter();
-            var result = sut.getBatter();
+            let result = sut.getBatter();
 
             expect(result).to.not.be.null;
             (<Player>result).should.equal(player);
         });
         it("allows you get on deck.", () => {
-            var player = new Player("Bob Gibson", DefensivePosition.pitcher);
-            var sut = new LineUp();
+            let player = new Player("Bob Gibson", DefensivePosition.pitcher);
+            let sut = new LineUp();
 
             sut.add(player, 2);
             sut.nextBatter();
-            var result = sut.getOnDeck();
+            let result = sut.getOnDeck();
 
             expect(result).to.not.be.null;
             (<Player>result).should.equal(player);
         });
         it("allows you to move the lineup forward.", () => {
-            var player1 = new Player("Bob Gibson", DefensivePosition.pitcher);
-            var player2 = new Player("Lou Brock", DefensivePosition.leftField);
-            var sut = new LineUp();
+            let player1 = new Player("Bob Gibson", DefensivePosition.pitcher);
+            let player2 = new Player("Lou Brock", DefensivePosition.leftField);
+            let sut = new LineUp();
 
             sut.add(player1, 2);
             sut.add(player2, 3);
             sut.nextBatter();
-            var onDeck = sut.getOnDeck();
+            let onDeck = sut.getOnDeck();
             expect(onDeck).not.to.be.null;
             (<Player>onDeck).should.equal(player1);
 
             sut.nextBatter();
-            var batter = sut.getBatter();
+            let batter = sut.getBatter();
             onDeck = sut.getOnDeck();
 
             expect(batter).to.not.be.null;
@@ -121,9 +121,9 @@ describe("LineUp", () => {
             (<Player>onDeck).should.equal(player2);
         });
         it("restarts at the beginning of the lineup when it reaches the end.", () => {
-            var player1 = new Player("Bob Gibson", DefensivePosition.pitcher);
-            var player2 = new Player("Lou Brock", DefensivePosition.leftField);
-            var sut = new LineUp();
+            let player1 = new Player("Bob Gibson", DefensivePosition.pitcher);
+            let player2 = new Player("Lou Brock", DefensivePosition.leftField);
+            let sut = new LineUp();
 
             sut.add(player1, 1);
             sut.add(player2, 2);
@@ -139,8 +139,8 @@ describe("LineUp", () => {
             sut.nextBatter();
             sut.nextBatter();
 
-            var batter = sut.getBatter();
-            var onDeck = sut.getOnDeck();
+            let batter = sut.getBatter();
+            let onDeck = sut.getOnDeck();
 
             expect(batter).to.not.be.null;
             (<Player>batter).should.equal(player1);
@@ -151,22 +151,22 @@ describe("LineUp", () => {
     });
     describe("add command", () => {
         it("adds AddPlayerToLineUp event.", () => {
-            var player = new Player("Mike Shannon", DefensivePosition.catcher);
-            var spot = 1;
-            var team = Team.home;
-            var sut = new AddToLineUpCommand(player, spot, team);
-            var state = new GameState();
+            let player = new Player("Mike Shannon", DefensivePosition.catcher);
+            let spot = 1;
+            let team = Team.home;
+            let sut = new AddToLineUpCommand(player, spot, team);
+            let state = new GameState();
 
             let results = sut.do(state);
 
             results[0].type.should.equal(EventType.AddToLineUp);
         });
         it("added AddPlayerToLineUp event should contain the correct player and line up spot.", () => {
-            var player = new Player("Mike Shannon", DefensivePosition.catcher);
-            var spot = 1;
-            var team = Team.home;
-            var sut = new AddToLineUpCommand(player, spot, team);
-            var state = new GameState();
+            let player = new Player("Mike Shannon", DefensivePosition.catcher);
+            let spot = 1;
+            let team = Team.home;
+            let sut = new AddToLineUpCommand(player, spot, team);
+            let state = new GameState();
 
             let results = sut.do(state);
 
@@ -174,42 +174,42 @@ describe("LineUp", () => {
             results[0].properties.spot.should.equal(spot);
         });
         it("added player event should specify which lineup.", () => {
-            var player = new Player("Mike Shannon", DefensivePosition.catcher);
-            var spot = 1;
-            var team = Team.home;
-            var sut = new AddToLineUpCommand(player, spot, team);
-            var state = new GameState();
+            let player = new Player("Mike Shannon", DefensivePosition.catcher);
+            let spot = 1;
+            let team = Team.home;
+            let sut = new AddToLineUpCommand(player, spot, team);
+            let state = new GameState();
 
             let results = sut.do(state);
 
             results[0].properties.team.should.equal(team);
         });
         it("should validate a player isn't already at that position.", () => {
-            var player1 = new Player("Mike Shannon", DefensivePosition.catcher);
-            var lineUp = new LineUp();
+            let player1 = new Player("Mike Shannon", DefensivePosition.catcher);
+            let lineUp = new LineUp();
             lineUp.add(player1, 2);
 
-            var player2 = new Player("Yadi Molina", DefensivePosition.catcher);
-            var spot = 1;
-            var team = Team.home;
-            var state = new GameStateBuilder().withHomeLineUp(lineUp).build();
+            let player2 = new Player("Yadi Molina", DefensivePosition.catcher);
+            let spot = 1;
+            let team = Team.home;
+            let state = new GameStateBuilder().withHomeLineUp(lineUp).build();
 
-            var sut = new AddToLineUpCommand(player2, spot, team);
+            let sut = new AddToLineUpCommand(player2, spot, team);
 
             (() => { sut.do(state); })
                 .should.throw("That position in the line up is already occupied.");
         });
         it("should validate a player isn't already at that spot.", () => {
-            var player1 = new Player("Mike Shannon", DefensivePosition.catcher);
-            var lineUp = new LineUp();
-            var spot = 1;
+            let player1 = new Player("Mike Shannon", DefensivePosition.catcher);
+            let lineUp = new LineUp();
+            let spot = 1;
             lineUp.add(player1, spot);
 
-            var player2 = new Player("Ozzie Smith", DefensivePosition.shortStop);
-            var team = Team.visitor;
-            var state = new GameStateBuilder().withVisitorLineUp(lineUp).build();
+            let player2 = new Player("Ozzie Smith", DefensivePosition.shortStop);
+            let team = Team.visitor;
+            let state = new GameStateBuilder().withVisitorLineUp(lineUp).build();
 
-            var sut = new AddToLineUpCommand(player2, spot, team);
+            let sut = new AddToLineUpCommand(player2, spot, team);
 
             (() => { sut.do(state); })
                 .should.throw("That position in the line up is already occupied.");
@@ -217,44 +217,44 @@ describe("LineUp", () => {
     });
     describe("add event evolver", () => {
         it("adds player to visiting team lineup.", () => {
-            var player = new PlayerBuilder().build();
-            var event = new AddToLineUpEvent(player, 1, Team.visitor);
-            var gameState = new GameStateBuilder().build();
+            let player = new PlayerBuilder().build();
+            let event = new AddToLineUpEvent(player, 1, Team.visitor);
+            let gameState = new GameStateBuilder().build();
 
             addToLineUpEvolver(event, gameState);
 
-            var result = gameState.visitorLineUp.getSpot(1);
+            let result = gameState.visitorLineUp.getSpot(1);
             expect(result).to.not.be.null;
             (<Player>result).should.equal(player);
         });
         it("adds player to home team lineup.", () => {
-            var player = new PlayerBuilder().build();
-            var event = new AddToLineUpEvent(player, 1, Team.home);
-            var gameState = new GameStateBuilder().build();
+            let player = new PlayerBuilder().build();
+            let event = new AddToLineUpEvent(player, 1, Team.home);
+            let gameState = new GameStateBuilder().build();
 
             addToLineUpEvolver(event, gameState);
 
-            var result = gameState.homeLineUp.getSpot(1);
+            let result = gameState.homeLineUp.getSpot(1);
             expect(result).to.not.be.null;
             (<Player>result).should.equal(player);
         });
     });
     describe("remove command", () => {
         it("adds RemovePlayerFromLineUp event.", () => {
-            var player = new Player("Mike Shannon", DefensivePosition.catcher);
-            var team = Team.home;
-            var sut = new RemoveFromLineUpCommand(player, team);
-            var state = new GameStateBuilder().build();
+            let player = new Player("Mike Shannon", DefensivePosition.catcher);
+            let team = Team.home;
+            let sut = new RemoveFromLineUpCommand(player, team);
+            let state = new GameStateBuilder().build();
 
             let results = sut.do(state);
 
             results[0].type.should.equal(EventType.RemoveFromLineUp);
         });
         it("added RemovePlayerFromLineUp event should contain the correct player.", () => {
-            var player = new Player("Mike Shannon", DefensivePosition.catcher);
-            var team = Team.home;
-            var sut = new RemoveFromLineUpCommand(player, team);
-            var state = new GameState();
+            let player = new Player("Mike Shannon", DefensivePosition.catcher);
+            let team = Team.home;
+            let sut = new RemoveFromLineUpCommand(player, team);
+            let state = new GameState();
 
             let results = sut.do(state);
 
@@ -264,27 +264,27 @@ describe("LineUp", () => {
     });
     describe("remove event evolver", () => {
         it("removes player from visiting team lineup.", () => {
-            var player = new PlayerBuilder().build();
-            var event = new RemoveFromLineUpEvent(player, Team.visitor);
-            var lineUp = new LineUp();
+            let player = new PlayerBuilder().build();
+            let event = new RemoveFromLineUpEvent(player, Team.visitor);
+            let lineUp = new LineUp();
             lineUp.add(player, 1);
-            var gameState = new GameStateBuilder().withVisitorLineUp(lineUp).build();
+            let gameState = new GameStateBuilder().withVisitorLineUp(lineUp).build();
 
             removeFromLineUpEvolver(event, gameState);
 
-            var result = gameState.visitorLineUp.getSpot(1);
+            let result = gameState.visitorLineUp.getSpot(1);
             expect(result).to.be.null;
         });
         it("removes player from home team lineup.", () => {
-            var player = new PlayerBuilder().build();
-            var event = new RemoveFromLineUpEvent(player, Team.home);
-            var lineUp = new LineUp();
+            let player = new PlayerBuilder().build();
+            let event = new RemoveFromLineUpEvent(player, Team.home);
+            let lineUp = new LineUp();
             lineUp.add(player, 1);
-            var gameState = new GameStateBuilder().withHomeLineUp(lineUp).build();
+            let gameState = new GameStateBuilder().withHomeLineUp(lineUp).build();
 
             removeFromLineUpEvolver(event, gameState);
 
-            var result = gameState.homeLineUp.getSpot(1);
+            let result = gameState.homeLineUp.getSpot(1);
             expect(result).to.be.null;
         });
     });

@@ -1,12 +1,13 @@
 import {
     AddToLineUpCommand, AdvanceRunnerCommand, BatterUpCommand, DefensivePosition,
-    FlyOutCommand, HomerunCommand, InningHalf, OffensivePosition, Player, Runner,
+    FlyOutCommand, HomerunCommand, InningHalf, OffensivePosition, Player,
     SingleCommand, StartCommand, Team
 } from "../baseball/index";
+import { InProcRunner } from "../baseballRunner/InProcRunner";
 
 describe("game runner", () => {
     it("can start game", () => {
-        var sut = new Runner();
+        let sut = new InProcRunner();
 
         sut.do(new StartCommand());
 
@@ -15,14 +16,14 @@ describe("game runner", () => {
         sut.state.inningHalf.should.equal(InningHalf.top);
     });
     it("can score run for home team", () => {
-        var sut = new Runner();
+        let sut = new InProcRunner();
 
         sut.do(new AddToLineUpCommand(new Player("Turd Ferguson 1", DefensivePosition.catcher), 1, Team.visitor));
         sut.do(new AddToLineUpCommand(new Player("Turd Ferguson 2", DefensivePosition.pitcher), 2, Team.visitor));
         sut.do(new AddToLineUpCommand(new Player("Turd Ferguson 3", DefensivePosition.firstBase), 3, Team.visitor));
         sut.do(new AddToLineUpCommand(new Player("Turd Ferguson 4", DefensivePosition.secondBase), 1, Team.home));
 
-        var defensivePlayer = new Player("Ozzie Smith", DefensivePosition.shortStop);
+        let defensivePlayer = new Player("Ozzie Smith", DefensivePosition.shortStop);
 
         sut.do(new StartCommand());
         sut.do(new BatterUpCommand());
@@ -37,7 +38,7 @@ describe("game runner", () => {
         sut.state.homeScore.should.equal(1);
     });
     it("can score run for visiting team", () => {
-        var sut = new Runner();
+        let sut = new InProcRunner();
 
         sut.do(new AddToLineUpCommand(new Player("Turd Ferguson 1", DefensivePosition.catcher), 1, Team.visitor));
         sut.do(new StartCommand());
@@ -47,8 +48,8 @@ describe("game runner", () => {
         sut.state.visitorScore.should.equal(1);
     });
     it("three outs roll over inning half", () => {
-        var defensivePlayer = new Player("Ozzie Smith", DefensivePosition.shortStop);
-        var sut = new Runner();
+        let defensivePlayer = new Player("Ozzie Smith", DefensivePosition.shortStop);
+        let sut = new InProcRunner();
 
         sut.do(new AddToLineUpCommand(new Player("Turd Ferguson 1", DefensivePosition.catcher), 1, Team.visitor));
         sut.do(new AddToLineUpCommand(new Player("Turd Ferguson 2", DefensivePosition.pitcher), 2, Team.visitor));
@@ -64,8 +65,8 @@ describe("game runner", () => {
         sut.state.inningHalf.should.equal(InningHalf.bottom);
     });
     it("six outs roll over inning", () => {
-        var defensivePlayer = new Player("Ozzie Smith", DefensivePosition.shortStop);
-        var sut = new Runner();
+        let defensivePlayer = new Player("Ozzie Smith", DefensivePosition.shortStop);
+        let sut = new InProcRunner();
 
         sut.do(new AddToLineUpCommand(new Player("Turd Ferguson 1", DefensivePosition.catcher), 1, Team.visitor));
         sut.do(new AddToLineUpCommand(new Player("Turd Ferguson 2", DefensivePosition.pitcher), 2, Team.visitor));
@@ -90,7 +91,7 @@ describe("game runner", () => {
         sut.state.inning.should.equal(2);
     });
     it("runner advancing home scores", () => {
-        var sut = new Runner();
+        let sut = new InProcRunner();
 
         sut.do(new AddToLineUpCommand(new Player("Turd Ferguson 1", DefensivePosition.catcher), 1, Team.visitor));
         sut.do(new AddToLineUpCommand(new Player("Turd Ferguson 2", DefensivePosition.pitcher), 2, Team.visitor));

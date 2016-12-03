@@ -1,5 +1,5 @@
 import { GameState } from "../aggregates/gameState";
-import { GameEvent, FlyOutEvent } from "../events";
+import { FlyOutEvent, GameEvent } from "../events";
 import { Player } from "../player";
 import { OutCommand } from "./OutCommand";
 

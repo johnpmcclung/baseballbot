@@ -1,6 +1,6 @@
-import { GameEvent } from "./event";
-import { Player } from "../player";
 import { EventType } from "../enums";
+import { Player } from "../player";
+import { GameEvent } from "./event";
 
 export class AssistedOutEvent implements GameEvent {
     type: EventType;
@@ -8,7 +8,10 @@ export class AssistedOutEvent implements GameEvent {
 
     constructor (defensivePlayers: Player[], outPlayers: Player[]) {
         this.type = EventType.AssistedOut;
-        this.properties = { defensivePlayers: defensivePlayers, outPlayers: outPlayers };
+        this.properties = {
+            "defensivePlayers": defensivePlayers,
+            "outPlayers": outPlayers
+        };
     }
 }
 
@@ -18,8 +21,8 @@ export interface AssistedOutEventProperties {
 }
 
 export function assistedOutEventStringify(event: AssistedOutEvent): string {
-    var outs: string = "";
-    var play = "(";
+    let outs: string = "";
+    let play = "(";
 
     if (event.properties.outPlayers.length === 1) {
         outs = `${event.properties.outPlayers[0].name} is out. `;

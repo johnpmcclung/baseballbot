@@ -1,11 +1,15 @@
-import { Player } from "../player";
 import { EventType } from "../enums";
+import { Player } from "../player";
 import { GameEvent } from "./event";
 
 export class StrikeOutEvent implements GameEvent {
     constructor(offensivePlayer: Player, defensivePlayer: Player, looking: boolean) {
         this.type = EventType.StrikeOut;
-        this.properties = { offensivePlayer: offensivePlayer, defensivePlayer: defensivePlayer, looking: looking };
+        this.properties = {
+            "offensivePlayer": offensivePlayer,
+            "defensivePlayer": defensivePlayer,
+            "looking": looking
+        };
     }
     type: EventType;
     properties: StrikeOutEventProperties;

@@ -24,7 +24,7 @@ export function flyOutDialog(): Array<builder.IDialogWaterfallStep> {
             }
         });
 
-        builder.Prompts.choice(session, 
+        builder.Prompts.choice(session,
             `Which player caught the ball?`,
             players);
     }, (session: builder.Session, result: builder.IPromptChoiceResult) => {

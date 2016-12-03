@@ -1,7 +1,7 @@
 import * as _ from "lodash";
+import { OffensivePosition } from "../../enums";
 import { AdvanceRunnerEvent } from "../../events/AdvanceRunnerEvent";
 import { GameState } from "./state";
-import { OffensivePosition } from "../../enums";
 
 export function advanceRunnerEvolver(event: AdvanceRunnerEvent, state: GameState): void {
     switch (event.properties.from) {

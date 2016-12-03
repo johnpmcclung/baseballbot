@@ -4,8 +4,8 @@ import { GameData } from "../gameData";
 
 export function homerunDialog(): Array<builder.IDialogWaterfallStep> {
     return  [(session: builder.Session) => {
-        var game = GameData.getInstance(session);
-        var hitter = game.state.atBat;
+        let game = GameData.getInstance(session);
+        let hitter = game.state.atBat;
         try {
             if(!hitter) {
                 throw new Error("No one is at bat");

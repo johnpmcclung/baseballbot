@@ -1,12 +1,15 @@
-import { UnassistedOutEvent } from "./UnassistedOutEvent";
-import { Player } from "../player";
 import { EventType } from "../enums";
+import { Player } from "../player";
+import { UnassistedOutEvent } from "./UnassistedOutEvent";
 
 export class GroundOutEvent extends UnassistedOutEvent {
     constructor(offensivePlayer: Player, defensivePlayer: Player) {
         super();
         this.type = EventType.GroundOut;
-        this.properties = { offensivePlayer: offensivePlayer, defensivePlayer: defensivePlayer };
+        this.properties = {
+            "offensivePlayer": offensivePlayer,
+            "defensivePlayer": defensivePlayer
+        };
     }
 }
 
